@@ -42,21 +42,21 @@ export const SAMPLE_3_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`
 
 export const SAMPLES: Record<number, DosaSample> = {
   1: {
-    name: 'അമ്മൂമ്മ സ്പെഷ്യൽ (Grandma Special)',
+    name: 'Master Tawa Gold',
     score: 97.3,
-    description: 'തികഞ്ഞ വട്ടത്തിലുള്ള ദോശ. അരികുകൾ മൊരിഞ്ഞതും സ്വർണ്ണ നിറത്തിലുള്ളതുമായ പാരമ്പര്യ മാതൃക.',
+    description: 'Flawlessly concentric master-grade roast with crisp golden margins and uniform ladle radial symmetry.',
     imageUrl: SAMPLE_1_IMAGE,
   },
   2: {
-    name: 'ദുരന്ത ചതുരം (The Tragic Rectangle)',
+    name: 'Hostel Midnight Disaster',
     score: 23.7,
-    description: 'ദോശയാണോ അതോ ചതുരക്കഷ്ണമാണോ എന്ന് ആർക്കും നിശ്ചയമില്ലാത്ത ഒരു ജ്യാമിതീയ ദുരന്തം.',
+    description: 'An asymmetrical geometric catastrophe hastily flipped on a warped skillet during 2 AM exam panic.',
     imageUrl: SAMPLE_2_IMAGE,
   },
   3: {
-    name: 'വട്ടംതെറ്റിയ ഓവൽ (Philosophical Oval)',
+    name: 'Sunday Rush Griddle',
     score: 61.2,
-    description: 'വട്ടമാണോ അല്ലയോ എന്ന് ചിന്തിച്ചു നിൽക്കുന്ന ഓവൽ രൂപത്തിലുള്ള തട്ടുകട ദോശ.',
+    description: 'A stretched semi-elliptical specimen poured under heavy peak-hour restaurant rush pressure.',
     imageUrl: SAMPLE_3_IMAGE,
   },
 };

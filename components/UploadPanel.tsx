@@ -197,7 +197,7 @@ export default function UploadPanel({
       {/* Pre-calibrated Reference Samples */}
       <div className="mt-6 pt-6 border-t border-[rgba(253,251,247,0.08)]">
         <div className="text-xs font-mono text-[#94a3b8] uppercase tracking-wider mb-3 flex items-center justify-between">
-          <span>മാതൃകാ ദോശകൾ തിരഞ്ഞെടുക്കാം (REFERENCE SAMPLES):</span>
+          <span>REFERENCE SPECIMENS</span>
           <span className="text-[#64748b]">SYNTHETIC REF</span>
         </div>
 
@@ -212,9 +212,9 @@ export default function UploadPanel({
                 : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
             }`}
           >
-            <div className="font-mono text-[0.65rem] text-[#10b981] font-semibold">ക്ലാസ് A • CLASS A</div>
-            <div className="text-xs font-medium truncate text-[#fdfbf7]">അമ്മൂമ്മ സ്പെഷ്യൽ</div>
-            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~97% വട്ടം (Grandma)</div>
+            <div className="font-mono text-[0.65rem] text-[#10b981] font-semibold">CLASS A • MASTER</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">Master Tawa Gold</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~97% Circularity</div>
           </button>
 
           <button
@@ -227,9 +227,9 @@ export default function UploadPanel({
                 : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
             }`}
           >
-            <div className="font-mono text-[0.65rem] text-[#f59e0b] font-semibold">ക്ലാസ് B • CLASS B</div>
-            <div className="text-xs font-medium truncate text-[#fdfbf7]">വട്ടംതെറ്റിയ ഓവൽ</div>
-            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~61% വട്ടം (Oval)</div>
+            <div className="font-mono text-[0.65rem] text-[#f59e0b] font-semibold">CLASS B • RUSH</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">Sunday Rush Griddle</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~61% Circularity</div>
           </button>
 
           <button
@@ -242,9 +242,9 @@ export default function UploadPanel({
                 : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
             }`}
           >
-            <div className="font-mono text-[0.65rem] text-[#b91c1c] font-semibold">ക്ലാസ് F • CLASS F</div>
-            <div className="text-xs font-medium truncate text-[#fdfbf7]">ദുരന്ത ചതുരം</div>
-            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~24% വട്ടം (Tragic)</div>
+            <div className="font-mono text-[0.65rem] text-[#b91c1c] font-semibold">CLASS F • CHAOS</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">Hostel Midnight Disaster</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~24% Circularity</div>
           </button>
         </div>
       </div>

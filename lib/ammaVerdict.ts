@@ -80,7 +80,7 @@ const VERDICT_LIBRARY: VerdictLibrary = {
   english: {
     perfect: [
       'Nothing to complain about. Suspiciously circular.',
-      'This is dangerously close to Grandma Special territory.',
+      'This is dangerously close to Master Tawa Gold territory.',
       'Fine. You actually made a dosa.',
       'Amma approves. This rarely happens.',
     ],
@@ -106,7 +106,7 @@ const VERDICT_LIBRARY: VerdictLibrary = {
       'What happened here?',
       'This is not a dosa. This is a geometric emergency.',
       'Even the compass would resign.',
-      'Please do not show Grandma this specimen.',
+      'Please do not show Amma this specimen.',
       'Amma refuses to comment on this.',
     ],
   },

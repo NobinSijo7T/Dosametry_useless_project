@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inconsolata:wght@400;500;600;700&family=Marcellus&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gayathri:wght@100;400;700&display=swap');
 @import "tailwindcss";
 
 /* ===== SACRED GEOMETRY & POLAR METROLOGY DESIGN SYSTEM ===== */
@@ -41,8 +42,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-marcellus: 'Marcellus', serif;
-  --font-sans: 'Albert Sans', var(--font-geist-sans), sans-serif;
+  --font-sans: 'Albert Sans', 'Gayathri', var(--font-geist-sans), sans-serif;
   --font-mono: 'Inconsolata', monospace;
+  --font-gayathri: 'Gayathri', sans-serif;
   
   /* Custom animation keyframes */
   --animate-spin-slow: spin 24s linear infinite;
@@ -53,78 +55,89 @@
   --animate-tawa-simmer: tawaSimmer 3s ease-in-out infinite;
 }
 
+/* Gayathri Malayalam Font Classes */
+.gayathri-thin {
+  font-family: 'Gayathri', sans-serif !important;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.gayathri-regular,
+.font-gayathri,
+[lang="ml"],
+.malayalam-text {
+  font-family: 'Gayathri', sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gayathri-bold {
+  font-family: 'Gayathri', sans-serif !important;
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* ===== RESET & BASE STYLING ===== */
 * {
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
   color-scheme: dark;
 }
 
 body {
-  background-color: var(--bg-canvas);
+  background: var(--bg-canvas);
   color: var(--text-primary);
-  font-family: 'Albert Sans', sans-serif;
-  line-height: 1.65;
+  font-family: var(--font-sans);
   overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  selection-background-color: rgba(245, 158, 11, 0.3);
-  selection-color: #fdfbf7;
+  selection-background-color: var(--ghee-gold);
+  selection-color: #000000;
 }
 
-/* Custom Text Selection */
 ::selection {
-  background: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.3);
   color: #fdfbf7;
 }
 
-/* Custom Scrollbar - Craft Floor Requirement */
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-canvas);
+  background: #0a0c10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(253, 251, 247, 0.16);
+  background: #1c212d;
   border-radius: 4px;
+  border: 1px solid rgba(253, 251, 247, 0.05);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.4);
+  background: #252c3c;
 }
 
-/* ===== ACCESSIBILITY: Reduced Motion ===== */
+/* Focus outline */
+:focus-visible {
+  outline: 2px solid var(--tawa-amber);
+  outline-offset: 2px;
+}
+
+/* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   html {
     scroll-behavior: auto !important;
-  }
-}
-
-/* ===== PRINT STYLES FOR OFFICIAL CERTIFICATE ===== */
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  nav, footer, #ticker, button, .no-print {
-    display: none !important;
-  }
-  .print-certificate {
-    display: block !important;
-    border: 2px solid #000000 !important;
-    padding: 2rem !important;
   }
 }
 
@@ -196,72 +209,113 @@ body {
 }
 
 
-/* ===== PRINT STYLES FOR DOSA PASSPORT ===== */
+/* ===== COMPREHENSIVE PRINT STYLES FOR DOSA PASSPORT & PDF EXPORT ===== */
 @media print {
-  /* Hide everything except the passport */
-  body > *:not(#__next) {
-    display: none !important;
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
   }
 
+  /* Reset document for clean white print */
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-family: 'Albert Sans', 'Gayathri', sans-serif !important;
+  }
+
+  /* Hide background canvas, header, navbar, footer, and main website chrome */
+  canvas,
+  nav,
+  header,
+  footer,
+  main,
+  button,
   .no-print {
     display: none !important;
   }
 
-  /* Show only passport content */
-  .passport-content {
+  /* Passport portal container rendered directly on document.body */
+  #dosa-passport-modal-root {
     display: block !important;
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    z-index: auto !important;
+  }
+
+  #dosa-passport-modal-root > div {
+    display: block !important;
+    position: static !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .passport-content,
+  #dosa-passport {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .passport-page {
-    width: 210mm;
-    min-height: 297mm;
-    margin: 0;
-    padding: 20mm;
-    background: white !important;
-    color: black !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
-  /* Ensure Malayalam Unicode renders correctly */
-  @page {
-    size: A4 portrait;
-    margin: 0;
-  }
-
-  /* Preserve colors for print */
+  /* Preserve colors, badges, borders, gradients */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
 
-  /* Hide navigation and app chrome */
-  nav,
-  header:not(.passport-page header),
-  footer:not(.passport-page footer),
-  .navbar,
-  button:not(.passport-page button),
-  .hero,
-  .ticker,
-  .analyzer-section,
-  canvas {
-    display: none !important;
+  .font-gayathri,
+  .gayathri-regular,
+  .gayathri-bold,
+  [lang="ml"] {
+    font-family: 'Gayathri', sans-serif !important;
   }
 
-  /* Ensure proper page breaks */
-  .passport-page {
-    page-break-after: always;
-    page-break-inside: avoid;
-  }
-
-  /* Override any background patterns */
-  body {
-    background: white !important;
-  }
-
-  /* Ensure images print */
   img {
-    max-width: 100%;
-    page-break-inside: avoid;
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
   }
 }
 

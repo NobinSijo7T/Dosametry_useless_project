@@ -131,7 +131,7 @@ export default function AmmaMode({
               language === lang.id
                 ? 'bg-[#f59e0b] text-[#0c0e12] shadow-lg'
                 : 'bg-[#0e1015] text-[#94a3b8] border border-[rgba(253,251,247,0.1)] hover:border-[#f59e0b] hover:text-[#fdfbf7]'
-            }`}
+            } ${lang.id === 'malayalam' ? 'font-gayathri font-semibold text-base' : ''}`}
           >
             {lang.label}
           </button>
@@ -176,10 +176,14 @@ export default function AmmaMode({
                 Amma Verdict
               </div>
               <p
-                className="text-[#fdfbf7] leading-relaxed text-sm"
+                className={`text-[#fdfbf7] leading-relaxed ${
+                  language === 'malayalam'
+                    ? 'font-gayathri text-base sm:text-lg font-normal tracking-wide'
+                    : 'text-sm'
+                }`}
                 style={{ 
-                  fontFamily: language === 'malayalam' ? 'inherit' : 'inherit',
-                  lineHeight: '1.6'
+                  fontFamily: language === 'malayalam' ? "'Gayathri', sans-serif" : 'inherit',
+                  lineHeight: language === 'malayalam' ? '1.8' : '1.6'
                 }}
               >
                 {verdict.verdict}

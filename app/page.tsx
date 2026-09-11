@@ -1,7 +1,6 @@
 import ParticleCanvas from '@/components/ParticleCanvas';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Ticker from '@/components/Ticker';
 import Analyzer from '@/components/Analyzer';
 
 export default function Home() {
@@ -11,7 +10,6 @@ export default function Home() {
       <Navbar />
       <main className="relative">
         <Hero />
-        <Ticker />
         <Analyzer />
       </main>
 
