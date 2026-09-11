@@ -1,7 +1,13 @@
 // Utility functions for Dosa Circularity Analyzer
 
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { Verdict, Metrics } from '@/types';
 import { VERDICTS } from './constants';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function getVerdictForScore(score: number): Verdict {
   const verdict = VERDICTS.find(v => score >= v.min && score <= v.max);
@@ -36,8 +42,4 @@ export function generateMetrics(score: number): Metrics {
 
 export function generateRandomScore(): number {
   return Math.round((Math.random() * 60 + 35) * 10) / 10;
-}
-
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
 }

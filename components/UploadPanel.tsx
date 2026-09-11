@@ -3,6 +3,8 @@
 import { useState, useRef, ChangeEvent, DragEvent, KeyboardEvent } from 'react';
 import { SAMPLES } from '@/lib/constants';
 import type { AnalyzerState } from '@/types';
+import { CreepyButton } from '@/components/ui/creepy-button';
+import { cn } from '@/lib/utils';
 
 interface UploadPanelProps {
   state: AnalyzerState;
@@ -249,20 +251,22 @@ export default function UploadPanel({
 
       {/* Main Trigger Action */}
       <div className="mt-6">
-        <button
+        <CreepyButton
           type="button"
           disabled={!canAnalyze}
           suppressHydrationWarning
           onClick={handleAnalyzeClick}
-          className={`w-full py-4 px-6 rounded-xl font-semibold text-sm tracking-wider uppercase font-mono transition-all flex items-center justify-center gap-3 ${
+          className="w-full min-h-[56px] rounded-xl"
+          coverClassName={cn(
+            "w-full py-4 px-6 rounded-xl font-semibold text-sm tracking-wider uppercase font-mono transition-all flex items-center justify-center gap-3",
             canAnalyze
-              ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#0c0e12] cursor-pointer shadow-[0_4px_20px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_28px_rgba(245,158,11,0.45)]'
-              : 'bg-[#161922] text-[#475569] border border-[rgba(253,251,247,0.06)] cursor-not-allowed'
-          }`}
+              ? "bg-[#f59e0b] hover:bg-[#d97706] text-[#0c0e12] cursor-pointer shadow-[0_4px_20px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_28px_rgba(245,158,11,0.45)]"
+              : "bg-[#161922] text-[#475569] border border-[rgba(253,251,247,0.06)] cursor-not-allowed"
+          )}
         >
           <span>Initiate U-2-Net Metrology Scan</span>
           <span className="text-base font-bold">⚡</span>
-        </button>
+        </CreepyButton>
       </div>
     </div>
   );
