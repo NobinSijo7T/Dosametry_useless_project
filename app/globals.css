@@ -1,0 +1,115 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --bg: #080b14;
+  --bg-2: #0d1220;
+  --bg-card: #111827;
+  --bg-card-hover: #161e30;
+  --border: rgba(255,255,255,0.07);
+  --border-glow: rgba(255, 190, 50, 0.3);
+  --text: #e2e8f0;
+  --text-muted: #8b98b0;
+  --text-dim: #4a5568;
+  --dosa-gold: #f59e0b;
+  --dosa-orange: #ea580c;
+}
+
+@theme inline {
+  --font-sans: 'Space Grotesk', var(--font-geist-sans);
+  --font-mono: 'JetBrains Mono', var(--font-geist-mono);
+  --font-orbitron: 'Orbitron', sans-serif;
+  
+  /* Custom animations */
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-spin-reverse: spin 3s linear infinite reverse;
+  --animate-spin-fast: spin 1.5s linear infinite;
+  --animate-orbit-20s: orbit 20s linear infinite;
+  --animate-orbit-35s-reverse: orbit 35s linear infinite reverse;
+  --animate-orbit-50s: orbit 50s linear infinite;
+  --animate-dosa-float-wobble: dosaFloat 4s ease-in-out infinite, dosaWobble 6s ease-in-out infinite;
+  --animate-pulse-badge: pulseBadge 2s ease-in-out infinite;
+  --animate-wobble: dosaWobble 4s ease-in-out infinite;
+  --animate-idle-pulse: idlePulse 3s ease-in-out infinite;
+  --animate-ticker: ticker 40s linear infinite;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== ACCESSIBILITY: Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== CUSTOM ANIMATIONS ===== */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dosaFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes dosaWobble {
+  0%, 100% { border-radius: 50% 48% 52% 49% / 51% 47% 53% 50%; }
+  33% { border-radius: 52% 48% 49% 51% / 49% 52% 48% 51%; }
+  66% { border-radius: 47% 53% 51% 49% / 53% 47% 52% 48%; }
+}
+
+@keyframes pulseBadge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(245,158,11,0); }
+}
+
+@keyframes idlePulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===== CUSTOM UTILITIES ===== */
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.bg-dosa-gradient {
+  background: radial-gradient(ellipse at 35% 35%, #f5c842 0%, #e8a020 40%, #c47a15 70%, #9a5a0a 100%);
+}
+
+.shadow-dosa {
+  box-shadow: 0 0 60px rgba(245,158,11,0.5), inset 0 -10px 30px rgba(0,0,0,0.3), inset 0 5px 15px rgba(255,255,200,0.2);
+}

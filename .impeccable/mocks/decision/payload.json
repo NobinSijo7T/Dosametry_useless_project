@@ -1,0 +1,131 @@
+{
+  "title": "Choose the visual world",
+  "question": "The roll assigned Sacred Geometry & Precision Metrology. Choose this direction, an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Sacred Geometry & Polar Metrology",
+      "kicker": "THE ROLL",
+      "lineage": "Traditional kolam dot-grid geometry fused with precision calibration lab charts",
+      "thesis": "Dosa circularity analyzed as sacred radial symmetry meeting high-order computational metrology on a seasoned cast-iron coordinate plane.",
+      "palette": [
+        "#121316",
+        "#fdfbf7",
+        "#f59e0b",
+        "#b91c1c"
+      ],
+      "materials": [
+        "seasoned cast-iron anthracite",
+        "concentric polar coordinate grid",
+        "chalk-dust ivory linework",
+        "vermilion calibration stamp"
+      ],
+      "viewport": "Full-viewport seasoned iron tawa with glowing concentric calibration reticles, vernier calipers, and instant drop-zone.",
+      "risk": "Can veer overly austere if the warmth of the dosa and golden ghee highlights are underplayed.",
+      "raised": [
+        {
+          "from": "challenger-fluid-basin",
+          "raise": "Batter swirl fluid dynamics and sambar surface tension are animated as active physical field lines."
+        },
+        {
+          "from": "challenger-massin",
+          "raise": "Deadpan mock-academic callouts scale dynamically with hyperbolic typographical contrast."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "The Darshini Metrology Bureau",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Bengaluru/Chennai Darshini token counters and stainless steel tawa stations",
+      "thesis": "High-velocity South Indian tawa ritual elevated to an official national standards bureau: stainless steel, brass tokens, and dot-matrix certificates.",
+      "palette": [
+        "#1e293b",
+        "#e2e8f0",
+        "#d97706",
+        "#10b981"
+      ],
+      "materials": [
+        "brushed stainless steel",
+        "embossed brass token chips",
+        "dot-matrix paper feed",
+        "hot tawa steam haze"
+      ],
+      "viewport": "Industrial stainless inspection bench with live thermal feed, dot-matrix telemetry readout, and token dispenser.",
+      "risk": "Heavy brass and steel industrial textures might feel heavy if not balanced with crisp digital typography.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-fluid-basin",
+      "label": "Rheological Fluid Dynamics Lab",
+      "verdict": "competitive",
+      "lineage": "Suminagashi ink basin & computational fluid mechanics",
+      "thesis": "Treating batter fermentation viscosity, ladle spiral swirl vortex, and sambar dipping surface tension as pure hydrodynamic simulation.",
+      "palette": [
+        "#0f172a",
+        "#38bdf8",
+        "#fbbf24",
+        "#f8fafc"
+      ],
+      "materials": [
+        "fluid vorticity streamlines",
+        "viscosity heatmaps",
+        "golden oil meniscus"
+      ],
+      "viewport": "Interactive fluid canvas showing real-time spiral batter spread vector fields and circularity deviation vectors.",
+      "case": "Fuses beautifully with the physics of pouring batter on a tawa, providing genuine dynamic interactive delight.",
+      "risk": "Requires rich canvas/WebGL shader rendering to avoid looking like a generic particle simulation.",
+      "comp": ".impeccable/mocks/decision/challenger-fluid-basin.webp",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin-hero.webp"
+    },
+    {
+      "id": "challenger-teletext",
+      "label": "Broadcast Teletext Metrology Service",
+      "verdict": "declined",
+      "lineage": "Broadcast teletext Ceefax / Doordarshan diagnostic test signals",
+      "palette": [
+        "#000000",
+        "#ffff00",
+        "#00ffff",
+        "#ffffff"
+      ],
+      "materials": [
+        "40x24 block grid",
+        "phosphor scanlines"
+      ],
+      "case": "Lacks the culinary warmth and organic South Indian context of dosas; overly sterile retro-European broadcast.",
+      "kept": "Rigid tabular monospace alignment for metric readouts.",
+      "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The Category Standard",
+    "thesis": "Dark mode modern web app with glowing neon accents, card grids, and circular SVG progress bars.",
+    "palette": [
+      "#080b14",
+      "#f59e0b",
+      "#e2e8f0"
+    ],
+    "materials": [
+      "glassmorphism panels",
+      "glowing borders",
+      "circular progress meters"
+    ],
+    "viewport": "Hero header with floating circular dosa graphic and standard file upload dropzone.",
+    "risk": "Looks like every other AI-generated dark-mode web tool.",
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}
