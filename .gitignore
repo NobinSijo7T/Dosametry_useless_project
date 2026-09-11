@@ -41,6 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # U-2-Net Model Files (download separately - see README)
+/U-2-Net/
 /public/U-2-Net/
 /public/models/
 /public/onnx/

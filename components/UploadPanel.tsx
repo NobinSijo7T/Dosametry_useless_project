@@ -195,7 +195,7 @@ export default function UploadPanel({
       {/* Pre-calibrated Reference Samples */}
       <div className="mt-6 pt-6 border-t border-[rgba(253,251,247,0.08)]">
         <div className="text-xs font-mono text-[#94a3b8] uppercase tracking-wider mb-3 flex items-center justify-between">
-          <span>Or load calibrated reference sample:</span>
+          <span>മാതൃകാ ദോശകൾ തിരഞ്ഞെടുക്കാം (REFERENCE SAMPLES):</span>
           <span className="text-[#64748b]">SYNTHETIC REF</span>
         </div>
 
@@ -210,9 +210,9 @@ export default function UploadPanel({
                 : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
             }`}
           >
-            <div className="font-mono text-[0.65rem] text-[#10b981] font-semibold">CLASS A</div>
-            <div className="text-xs font-medium truncate text-[#fdfbf7]">Grandma Special</div>
-            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~97% Circular</div>
+            <div className="font-mono text-[0.65rem] text-[#10b981] font-semibold">ക്ലാസ് A • CLASS A</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">അമ്മൂമ്മ സ്പെഷ്യൽ</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~97% വട്ടം (Grandma)</div>
           </button>
 
           <button
@@ -225,9 +225,9 @@ export default function UploadPanel({
                 : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
             }`}
           >
-            <div className="font-mono text-[0.65rem] text-[#f59e0b] font-semibold">CLASS B</div>
-            <div className="text-xs font-medium truncate text-[#fdfbf7]">Schrödinger Oval</div>
-            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~61% Circular</div>
+            <div className="font-mono text-[0.65rem] text-[#f59e0b] font-semibold">ക്ലാസ് B • CLASS B</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">വട്ടംതെറ്റിയ ഓവൽ</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~61% വട്ടം (Oval)</div>
           </button>
 
           <button
@@ -240,9 +240,9 @@ export default function UploadPanel({
                 : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
             }`}
           >
-            <div className="font-mono text-[0.65rem] text-[#b91c1c] font-semibold">CLASS F</div>
-            <div className="text-xs font-medium truncate text-[#fdfbf7]">Tragic Rectangle</div>
-            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~24% Circular</div>
+            <div className="font-mono text-[0.65rem] text-[#b91c1c] font-semibold">ക്ലാസ് F • CLASS F</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">ദുരന്ത ചതുരം</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~24% വട്ടം (Tragic)</div>
           </button>
         </div>
       </div>
@@ -252,6 +252,7 @@ export default function UploadPanel({
         <button
           type="button"
           disabled={!canAnalyze}
+          suppressHydrationWarning
           onClick={handleAnalyzeClick}
           className={`w-full py-4 px-6 rounded-xl font-semibold text-sm tracking-wider uppercase font-mono transition-all flex items-center justify-center gap-3 ${
             canAnalyze

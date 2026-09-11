@@ -1,52 +1,221 @@
-'use client';
+"use client"
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { ArrowUpRight, Home, User, Calendar, Zap, CreditCard, Menu, X, Sun, Moon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { ThemeToggle } from "@/components/theme-toggle"
+import LogoIcon from '@/assets/logo/logo-icon'
+import { motion, AnimatePresence } from "framer-motion"
+import { useTheme } from "next-themes"
 
-export default function Navbar() {
+// Helper component for navigation links
+const NavLink = ({ href, icon: Icon, label }: { href: string; icon: React.ComponentType<{ className?: string }>; label: string }) => (
+  <Link 
+    href={href} 
+    className="group flex items-center gap-1.5 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors whitespace-nowrap"
+  >
+    <Icon className="w-4 h-4 opacity-70 group-hover:opacity-100" />
+    <span>{label}</span>
+  </Link>
+)
+
+// Simple Theme Toggle for Mobile
+const MobileThemeToggle = () => {
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return <div className="w-9 h-9" />
+
+  const isDark = (theme === 'dark' || resolvedTheme === 'dark')
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 lg:px-12 py-4 bg-[#0c0e12]/85 backdrop-blur-md border-b border-[rgba(253,251,247,0.08)]">
-      {/* Directorate Emblem & Brand */}
-      <a href="#" className="flex items-center gap-3.5 group text-left">
-        <div className="relative w-9 h-9 flex items-center justify-center border border-[rgba(253,251,247,0.2)] rounded-full bg-[#151922] group-hover:border-[#f59e0b] transition-colors">
-          <svg className="w-5 h-5 text-[#f59e0b] animate-spin-slow" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3">
-            <circle cx="50" cy="50" r="42" strokeDasharray="6 4" />
-            <circle cx="50" cy="50" r="28" />
-            <circle cx="50" cy="50" r="14" strokeDasharray="3 3" />
-            <line x1="50" y1="4" x2="50" y2="96" strokeWidth="1.5" />
-            <line x1="4" y1="50" x2="96" y2="50" strokeWidth="1.5" />
+    <button
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-foreground/5 transition-colors text-foreground/70 hover:text-foreground"
+      aria-label="Toggle theme"
+    >
+      {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+    </button>
+  )
+}
+
+export function NotchNavbar({ className, ...props }: React.HTMLAttributes<HTMLElement> & { logo?: React.ReactNode }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Navigation items configuration
+  const items = {
+    left: [
+      { label: "Home", href: "#home", icon: Home },
+      { label: "About", href: "#about", icon: User },
+      { label: "Events", href: "#events", icon: Calendar }
+    ],
+    right: [
+      { label: "Sponsors", href: "#sponsors", icon: Zap },
+      { label: "Pricing", href: "#pricing", icon: CreditCard }
+    ]
+  }
+
+  return (
+    <>
+      <header className={cn("fixed top-0 inset-x-0 z-50 h-16 flex px-0", className)} {...props}>
+        
+        {/* Left Side Bar - Flexible width */}
+        <div className="flex-1 h-10 bg-zinc-50 dark:bg-black z-20 relative min-w-0">
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+            <line x1="0" y1="39.5" x2="100%" y2="39.5" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+            <line x1="0" y1="36.5" x2="100%" y2="36.5" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
           </svg>
         </div>
-        <div>
-          <div className="font-marcellus text-base tracking-wider text-[#fdfbf7] flex items-center gap-1.5">
-            <span>Dosa Metrology Directorate</span>
-            <span className="text-[0.65rem] font-mono px-1.5 py-0.5 rounded bg-[rgba(245,158,11,0.15)] text-[#f59e0b] border border-[rgba(245,158,11,0.3)]">DMD-LAB</span>
+
+        {/* Responsive Notch Container - 3 Slices */}
+        <div className="flex h-16 relative z-10 shrink-0 -ml-px">
+          
+          {/* Left Slice (Corner) */}
+          <div className="w-[50px] h-full relative shrink-0">
+            {/* Glass Background */}
+            <div className="absolute inset-0 bg-zinc-50 dark:bg-black" style={{ clipPath: "path('M0 0 H50 V64 C25 64 25 40 0 40 Z')" }} />
+            {/* Outlines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 50 64">
+              <path d="M0 39.5 C25 39.5 25 63.5 50 63.5" fill="none" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+              <path d="M0 36.5 C25 36.5 25 60.5 50 60.5" fill="none" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+            </svg>
           </div>
-          <div className="text-[0.68rem] tracking-widest text-[#94a3b8] uppercase font-mono">
-            National Standards of Circularity
+
+          {/* Center Slice (Flexible Content Area) */}
+          <div className="flex-1 h-full relative min-w-0 -ml-px">
+             {/* Background & Lines Layer */}
+             <div className="absolute inset-0 bg-zinc-50 dark:bg-black">
+                 <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
+                   <line x1="0" y1="63.5" x2="100%" y2="63.5" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+                   <line x1="0" y1="60.5" x2="100%" y2="60.5" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+                 </svg>
+             </div>
+
+             {/* Content Layer */}
+             <div className="relative w-full h-full flex items-end justify-between pb-2 px-4 md:px-8">
+               
+               {/* Desktop Left Nav */}
+               <nav className="hidden md:flex gap-8 mb-1 shrink-0">
+                {items.left.map(item => (
+                  <NavLink key={item.label} {...item} />
+                ))}
+              </nav>
+
+              {/* Mobile Menu Button (Left) */}
+              <button 
+                className="md:hidden mb-1 p-1 text-foreground/70 hover:text-foreground transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+
+              {/* Logo (Center) */}
+              <div className="flex justify-center shrink-0 mx-2 md:mx-4 mt-1">
+                {props.logo || (
+                  <Link href="/" className="flex items-center justify-center relative group">
+                    <LogoIcon className="w-7 h-7 text-foreground rotate-180 hover:scale-105 transition-transform relative z-10" />
+                  </Link>
+                )}
+              </div>
+
+              {/* Desktop Right Nav */}
+              <nav className="hidden md:flex gap-6 items-center shrink-0">
+                {items.right.map(item => (
+                  <NavLink key={item.label} {...item} />
+                ))}
+                
+                <div className="flex gap-4 pl-4 border-l border-foreground/10 shrink-0 items-center">
+                  <ThemeToggle />
+                  <Link href="/login" className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors whitespace-nowrap">
+                    Log in
+                  </Link>
+                  <Link href="/signup" className="px-3 py-1.5 text-sm font-medium text-background bg-foreground rounded-2xl hover:bg-foreground/90 transition-colors shadow-sm shadow-foreground/10 whitespace-nowrap">
+                    Sign up
+                  </Link>
+                </div>
+              </nav>
+
+              {/* Mobile Right Actions */}
+              <div className="md:hidden flex items-center gap-2 mb-1">
+                <MobileThemeToggle />
+              </div>
+
+             </div>
           </div>
+
+          {/* Right Slice (Corner) */}
+          <div className="w-[50px] h-full relative shrink-0 -ml-px">
+            {/* Glass Background */}
+            <div className="absolute inset-0 bg-zinc-50 dark:bg-black" style={{ clipPath: "path('M0 0 H50 V40 C25 40 25 64 0 64 Z')" }} />
+            {/* Outlines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 50 64">
+              <path d="M0 63.5 C25 63.5 25 39.5 50 39.5" fill="none" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+              <path d="M0 60.5 C25 60.5 25 36.5 50 36.5" fill="none" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+            </svg>
+          </div>
+
         </div>
-      </a>
 
-      {/* Navigation Links */}
-      <ul className="hidden md:flex items-center list-none gap-8 font-sans">
-        <li>
-          <a href="#analyzer" className="text-sm text-[#94a3b8] hover:text-[#fdfbf7] transition-colors tracking-wide">
-            Calibration Bay
-          </a>
-        </li>
+        {/* Right Side Bar - Flexible width */}
+        <div className="flex-1 h-10 bg-zinc-50 dark:bg-black z-20 relative min-w-0 -ml-px">
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+            <line x1="0" y1="39.5" x2="100%" y2="39.5" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+            <line x1="0" y1="36.5" x2="100%" y2="36.5" stroke="currentColor" strokeOpacity={0.05} strokeWidth={0.5} className="text-foreground" />
+          </svg>
+        </div>
 
+      </header>
 
-        <li>
-          <a href="#charter" className="text-sm text-[#94a3b8] hover:text-[#fdfbf7] transition-colors tracking-wide">
-            Charter
-          </a>
-        </li>
-      </ul>
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-16 z-40 bg-zinc-50 dark:bg-black border-b border-foreground/5 p-4 md:hidden shadow-lg"
+          >
+             <nav className="flex flex-col gap-2">
+               {/* Combine all items */}
+               {[...items.left, ...items.right].map(item => (
+                 <Link 
+                   key={item.label} 
+                   href={item.href}
+                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-foreground/5 transition-colors"
+                   onClick={() => setIsMobileMenuOpen(false)}
+                 >
+                   <item.icon className="w-5 h-5 opacity-70" />
+                   <span className="font-medium text-foreground/90">{item.label}</span>
+                 </Link>
+               ))}
+               <div className="h-px bg-foreground/10 my-2" />
+               <div className="flex flex-col gap-2">
+                 <Link 
+                    href="/login" 
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-foreground/5 transition-colors font-medium text-foreground/90"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                 >
+                   Log in
+                 </Link>
+                 <Link 
+                    href="/signup" 
+                    className="flex items-center justify-center gap-2 p-3 rounded-lg bg-foreground text-background font-medium mt-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                 >
+                   Sign up
+                 </Link>
+               </div>
+             </nav>
 
-      {/* Official Status Seal Badge */}
-      <div className="flex items-center gap-2.5 font-mono text-[0.72rem] bg-[#141720] border border-[rgba(253,251,247,0.1)] px-3 py-1.5 rounded-lg text-[#fdfbf7]">
-        <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-        <span className="hidden sm:inline text-[#94a3b8]">CALIBRATION:</span>
-        <span className="text-[#f59e0b] font-semibold">CLASS 0 (ACTIVE)</span>
-      </div>
-    </nav>
-  );
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
 }
+
+export default NotchNavbar;

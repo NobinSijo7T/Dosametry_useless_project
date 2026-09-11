@@ -29,7 +29,7 @@ export default function Hero() {
           {/* Calibrated Laboratory Telemetry Cards */}
           <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-[560px]">
             <div className="bg-[#141720] border border-[rgba(253,251,247,0.1)] rounded-xl p-4 text-left shadow-sm">
-              <span className="block font-mono text-xl sm:text-2xl font-bold text-[#f59e0b]">
+              <span className="block font-mono text-xl sm:text-2xl font-bold text-[#f59e0b]" suppressHydrationWarning>
                 {specimenCount.toLocaleString('en-IN')}
               </span>
               <span className="block text-[0.7rem] font-mono text-[#94a3b8] uppercase tracking-wider mt-1">

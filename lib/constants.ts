@@ -42,21 +42,21 @@ export const SAMPLE_3_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`
 
 export const SAMPLES: Record<number, DosaSample> = {
   1: {
-    name: 'The Grandma Special',
+    name: 'അമ്മൂമ്മ സ്പെഷ്യൽ (Grandma Special)',
     score: 97.3,
-    description: 'A near-perfect specimen. The edges are crisp, the surface uniform, and the spirit of three generations of South Indian culinary mastery is palpable.',
+    description: 'തികഞ്ഞ വട്ടത്തിലുള്ള ദോശ. അരികുകൾ മൊരിഞ്ഞതും സ്വർണ്ണ നിറത്തിലുള്ളതുമായ പാരമ്പര്യ മാതൃക.',
     imageUrl: SAMPLE_1_IMAGE,
   },
   2: {
-    name: 'The Tragic Rectangle',
+    name: 'ദുരന്ത ചതുരം (The Tragic Rectangle)',
     score: 23.7,
-    description: 'We are not sure what happened here. This dosa appears to have given up midway through its journey. A forensic investigation is ongoing.',
+    description: 'ദോശയാണോ അതോ ചതുരക്കഷ്ണമാണോ എന്ന് ആർക്കും നിശ്ചയമില്ലാത്ത ഒരു ജ്യാമിതീയ ദുരന്തം.',
     imageUrl: SAMPLE_2_IMAGE,
   },
   3: {
-    name: 'The Philosophical Oval',
+    name: 'വട്ടംതെറ്റിയ ഓവൽ (Philosophical Oval)',
     score: 61.2,
-    description: 'The dosa seems to be asking existential questions. It is not a circle, but it is also not not a circle. Schrödinger\'s dosa.',
+    description: 'വട്ടമാണോ അല്ലയോ എന്ന് ചിന്തിച്ചു നിൽക്കുന്ന ഓവൽ രൂപത്തിലുള്ള തട്ടുകട ദോശ.',
     imageUrl: SAMPLE_3_IMAGE,
   },
 };
