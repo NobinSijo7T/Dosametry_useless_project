@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dosa Circularity Analyzer™",
-  description: "The world's most important scientific tool for analyzing dosa circularity. Powered by AI, ML, DL, Blockchain, and disappointed grandmothers.",
-  keywords: ["dosa", "circularity", "analyzer", "south indian", "food", "AI", "machine learning"],
-  authors: [{ name: "NobinSijo7T" }],
+  title: "Dosa Circularity Analyzer™ | National Metrology Directorate",
+  description: "The official computational metrology laboratory measuring dosa circularity via polar coordinate interferometry, batter spiral dynamics, and matriarchal approval modeling.",
+  keywords: ["dosa", "circularity", "metrology", "kolam geometry", "south indian culinary", "satire", "nobel prize"],
+  authors: [{ name: "National Metrology Directorate for Dosa Circularity" }],
   openGraph: {
-    title: "Dosa Circularity Analyzer™",
-    description: "Analyze the circularity of your dosa with cutting-edge AI and machine learning.",
+    title: "Dosa Circularity Analyzer™ | National Metrology Directorate",
+    description: "Sub-millimeter polar coordinate interferometry and matriarchal approval modeling for the modern South Indian tawa.",
     type: "website",
   },
 };
@@ -24,7 +24,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen bg-[#0c0e12] text-[#fdfbf7] antialiased">
+        {children}
+      </body>
     </html>
   );
 }

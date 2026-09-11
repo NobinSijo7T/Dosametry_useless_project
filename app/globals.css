@@ -1,57 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inconsolata:wght@400;500;600;700&family=Marcellus&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
 
-/* ===== DESIGN TOKENS ===== */
+/* ===== SACRED GEOMETRY & POLAR METROLOGY DESIGN SYSTEM ===== */
 :root {
-  --bg: #080b14;
-  --bg-2: #0d1220;
-  --bg-card: #111827;
-  --bg-card-hover: #161e30;
-  --border: rgba(255,255,255,0.07);
-  --border-glow: rgba(255, 190, 50, 0.3);
-  --text: #e2e8f0;
-  --text-muted: #8b98b0;
-  --text-dim: #4a5568;
-  --dosa-gold: #f59e0b;
-  --dosa-orange: #ea580c;
+  /* Seasoned Cast-Iron Base Palette */
+  --bg-canvas: #0c0e12;
+  --bg-surface: #12151c;
+  --bg-elevated: #171b24;
+  --bg-card: #151821;
+  --bg-card-hover: #1c212d;
+  
+  /* Linework & Precision Geometry */
+  --chalk-ivory: #fdfbf7;
+  --chalk-dim: rgba(253, 251, 247, 0.45);
+  --chalk-line: rgba(253, 251, 247, 0.12);
+  --chalk-subtle: rgba(253, 251, 247, 0.05);
+  --border: rgba(253, 251, 247, 0.10);
+  --border-focus: rgba(245, 158, 11, 0.6);
+
+  /* Culinary & Metrology Accents */
+  --ghee-gold: #f59e0b;
+  --tawa-amber: #d97706;
+  --tawa-dark: #92400e;
+  --seal-crimson: #b91c1c;
+  --seal-dark: #7f1d1d;
+  --kolam-cyan: #38bdf8;
+  --metrology-green: #10b981;
+  
+  /* Text & Typography Hierarchy */
+  --text-primary: #fdfbf7;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dim: #475569;
 }
 
 @theme inline {
-  --font-sans: 'Space Grotesk', var(--font-geist-sans);
-  --font-mono: 'JetBrains Mono', var(--font-geist-mono);
-  --font-orbitron: 'Orbitron', sans-serif;
+  --font-marcellus: 'Marcellus', serif;
+  --font-sans: 'Albert Sans', var(--font-geist-sans), sans-serif;
+  --font-mono: 'Inconsolata', monospace;
   
-  /* Custom animations */
-  --animate-spin-slow: spin 8s linear infinite;
-  --animate-spin-reverse: spin 3s linear infinite reverse;
-  --animate-spin-fast: spin 1.5s linear infinite;
-  --animate-orbit-20s: orbit 20s linear infinite;
-  --animate-orbit-35s-reverse: orbit 35s linear infinite reverse;
-  --animate-orbit-50s: orbit 50s linear infinite;
-  --animate-dosa-float-wobble: dosaFloat 4s ease-in-out infinite, dosaWobble 6s ease-in-out infinite;
-  --animate-pulse-badge: pulseBadge 2s ease-in-out infinite;
-  --animate-wobble: dosaWobble 4s ease-in-out infinite;
-  --animate-idle-pulse: idlePulse 3s ease-in-out infinite;
-  --animate-ticker: ticker 40s linear infinite;
+  /* Custom animation keyframes */
+  --animate-spin-slow: spin 24s linear infinite;
+  --animate-spin-reverse: spin 16s linear infinite reverse;
+  --animate-polar-sweep: polarSweep 6s linear infinite;
+  --animate-ticker: ticker 45s linear infinite;
+  --animate-reticle-breathe: reticleBreathe 4s ease-in-out infinite;
+  --animate-tawa-simmer: tawaSimmer 3s ease-in-out infinite;
 }
 
-/* ===== RESET & BASE ===== */
+/* ===== RESET & BASE STYLING ===== */
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Space Grotesk', sans-serif;
-  line-height: 1.6;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: 'Albert Sans', sans-serif;
+  line-height: 1.65;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  selection-background-color: rgba(245, 158, 11, 0.3);
+  selection-color: #fdfbf7;
+}
+
+/* Custom Text Selection */
+::selection {
+  background: rgba(245, 158, 11, 0.35);
+  color: #fdfbf7;
+}
+
+/* Custom Scrollbar - Craft Floor Requirement */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(253, 251, 247, 0.16);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.4);
 }
 
 /* ===== ACCESSIBILITY: Reduced Motion ===== */
@@ -66,50 +107,196 @@ body {
   }
 }
 
-/* ===== CUSTOM ANIMATIONS ===== */
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* ===== PRINT STYLES FOR OFFICIAL CERTIFICATE ===== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  nav, footer, #ticker, button, .no-print {
+    display: none !important;
+  }
+  .print-certificate {
+    display: block !important;
+    border: 2px solid #000000 !important;
+    padding: 2rem !important;
+  }
 }
 
-@keyframes orbit {
-  to { transform: rotate(360deg); }
+/* ===== CUSTOM METROLOGICAL ANIMATIONS ===== */
+@keyframes polarSweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@keyframes dosaFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+@keyframes reticleBreathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
 }
 
-@keyframes dosaWobble {
-  0%, 100% { border-radius: 50% 48% 52% 49% / 51% 47% 53% 50%; }
-  33% { border-radius: 52% 48% 49% 51% / 49% 52% 48% 51%; }
-  66% { border-radius: 47% 53% 51% 49% / 53% 47% 52% 48%; }
-}
-
-@keyframes pulseBadge {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(245,158,11,0); }
-}
-
-@keyframes idlePulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
+@keyframes tawaSimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.15));
+  }
+  50% {
+    filter: drop-shadow(0 0 24px rgba(245, 158, 11, 0.35));
+  }
 }
 
 @keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-/* ===== CUSTOM UTILITIES ===== */
-.font-orbitron {
-  font-family: 'Orbitron', sans-serif;
+/* ===== TEXTURED & RETICLE UTILITY CLASSES ===== */
+.font-marcellus {
+  font-family: 'Marcellus', serif;
 }
 
-.bg-dosa-gradient {
-  background: radial-gradient(ellipse at 35% 35%, #f5c842 0%, #e8a020 40%, #c47a15 70%, #9a5a0a 100%);
+.font-mono {
+  font-family: 'Inconsolata', monospace;
 }
 
-.shadow-dosa {
-  box-shadow: 0 0 60px rgba(245,158,11,0.5), inset 0 -10px 30px rgba(0,0,0,0.3), inset 0 5px 15px rgba(255,255,200,0.2);
+
+.cast-iron-surface {
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #13161e 0%, #0e1015 100%);
+  border: 1px solid rgba(253, 251, 247, 0.09);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 12px 32px -4px rgba(0, 0, 0, 0.6);
+}
+
+.wax-seal-badge {
+  background: radial-gradient(circle at 35% 35%, #dc2626 0%, #991b1b 65%, #7f1d1d 100%);
+  box-shadow: 
+    0 4px 14px rgba(185, 28, 28, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ===== PRINT STYLES FOR DOSA PASSPORT ===== */
+@media print {
+  /* Hide everything except the passport */
+  body > *:not(#__next) {
+    display: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Show only passport content */
+  .passport-content {
+    display: block !important;
+  }
+
+  .passport-page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    padding: 20mm;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure Malayalam Unicode renders correctly */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  /* Preserve colors for print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Hide navigation and app chrome */
+  nav,
+  header:not(.passport-page header),
+  footer:not(.passport-page footer),
+  .navbar,
+  button:not(.passport-page button),
+  .hero,
+  .ticker,
+  .analyzer-section,
+  canvas {
+    display: none !important;
+  }
+
+  /* Ensure proper page breaks */
+  .passport-page {
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+
+  /* Override any background patterns */
+  body {
+    background: white !important;
+  }
+
+  /* Ensure images print */
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+}
+
+/* ===== CUSTOM ANIMATIONS FOR AMMA MODE ===== */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.font-marcellus {
+  font-family: 'Marcellus', serif;
+}
+
+/* Wax seal gradient */
+.wax-seal-badge {
+  background: radial-gradient(circle at 30% 30%, #dc2626, #991b1b 60%, #7f1d1d);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
 }

@@ -29,14 +29,14 @@ The world's foremost (and entirely satirical) computational geometry lab dedicat
 
 - **Confirmed Capabilities**:
   - Client-side image upload, dropzone, and preview.
-  - Simulated multi-step scientific scanning animations.
-  - Randomized circularity scoring (0–100%) paired with mock classifications (from "Platonic Ideal" to "Geometrical Crime").
-  - Parody metrics: Roundness Index, Edge Jitter, Sambar Eligibility, Amma Approval, Tawa Thermal Uniformity.
+  - Multi-step metrological radar scan and diagnostic sequence.
+  - On-device local U-2-Net neural segmentation with boundary contour extraction.
+  - Real polar metrology metrics: Isoperimetric Circularity Quotient ($4\pi A / P^2$), Radial Variance $\sigma$, Radial Max Deviation, Sambar Meniscus Stability, and Amma Critical Approval index.
+  - Interactive contour tracing overlay and binary segmentation mask inspector.
   - Pure CSS animated dosa art and interactive particle canvas.
-  - Mock global leaderboard and satirical scientific news ticker.
+  - Satirical scientific news ticker.
 - **Durable Constraints**:
-  - Pure client-side execution; user images are never uploaded to remote servers.
-  - Pure satire and entertainment: algorithms remain randomized parody rather than requiring heavy ML backends.
+  - 100% client-side on-device inference via WebAssembly/WebGPU; user images are never uploaded to remote servers.
   - Next.js / React / TypeScript / Tailwind CSS stack.
 
 ## Brand Commitments

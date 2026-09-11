@@ -2,34 +2,52 @@
 
 import { useState, useRef, ChangeEvent, DragEvent, KeyboardEvent } from 'react';
 import { SAMPLES } from '@/lib/constants';
-import { generateRandomScore, getVerdictForScore, generateMetrics } from '@/lib/utils';
-import type { AnalyzerState, AnalysisResult } from '@/types';
+import type { AnalyzerState } from '@/types';
 
 interface UploadPanelProps {
   state: AnalyzerState;
-  setState: (state: AnalyzerState) => void;
-  setResult: (result: AnalysisResult | null) => void;
+  onStartAnalysis: (source: File | string, specimenName?: string) => void;
+  previewUrl: string | null;
+  setPreviewUrl: (url: string | null) => void;
+  fileName: string;
+  setFileName: (name: string) => void;
 }
 
-export default function UploadPanel({ state, setState, setResult }: UploadPanelProps) {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string>('');
+export default function UploadPanel({
+  state,
+  onStartAnalysis,
+  previewUrl,
+  setPreviewUrl,
+  fileName,
+  setFileName,
+}: UploadPanelProps) {
   const [selectedSample, setSelectedSample] = useState<number | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const objectURLRef = useRef<string | null>(null);
 
   const handleFile = (file: File) => {
-    if (!file.type.startsWith('image/')) return;
+    setUploadError(null);
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Invalid file format. Please deposit a PNG, JPG, or WebP specimen image.');
+      return;
+    }
 
-    // Clean up previous object URL
+    if (file.size > 25 * 1024 * 1024) {
+      setUploadError('Specimen image exceeds 25MB threshold.');
+      return;
+    }
+
     if (objectURLRef.current) {
       URL.revokeObjectURL(objectURLRef.current);
     }
 
     const url = URL.createObjectURL(file);
     objectURLRef.current = url;
-    setPreview(url);
+    setSelectedFile(file);
+    setPreviewUrl(url);
     setFileName(file.name);
     setSelectedSample(null);
   };
@@ -63,112 +81,187 @@ export default function UploadPanel({ state, setState, setResult }: UploadPanelP
   };
 
   const loadSample = (n: number) => {
+    setUploadError(null);
     setSelectedSample(n);
-    setPreview('sample');
-    setFileName(`Sample: ${SAMPLES[n].name}`);
+    setSelectedFile(null);
+    const sample = SAMPLES[n];
+    if (sample.imageUrl) {
+      setPreviewUrl(sample.imageUrl);
+      setFileName(`Calibration Reference: ${sample.name}`);
+    }
   };
 
-  const startAnalysis = () => {
-    if (state === 'analyzing') return;
-    setState('analyzing');
+  const handleAnalyzeClick = () => {
+    if (state !== 'idle' && state !== 'error') return;
 
-    const finalScore = selectedSample ? SAMPLES[selectedSample].score : generateRandomScore();
-    
-    // Simulate analysis delay
-    setTimeout(() => {
-      const verdict = getVerdictForScore(finalScore);
-      const metrics = generateMetrics(finalScore);
-      
-      setResult({
-        score: finalScore,
-        verdict,
-        metrics,
-      });
-      setState('done');
-    }, 3000);
+    if (selectedFile) {
+      onStartAnalysis(selectedFile, fileName);
+    } else if (selectedSample && SAMPLES[selectedSample]?.imageUrl) {
+      onStartAnalysis(SAMPLES[selectedSample].imageUrl!, SAMPLES[selectedSample].name);
+    } else if (previewUrl) {
+      onStartAnalysis(previewUrl, fileName || 'Specimen');
+    }
   };
 
-  const canAnalyze = (preview !== null || selectedSample !== null) && state === 'idle';
+  const isBusy = state !== 'idle' && state !== 'error' && state !== 'done';
+  const canAnalyze = (previewUrl !== null || selectedFile !== null) && !isBusy;
 
   return (
-    <div className="bg-[#111827] border border-[rgba(255,255,255,0.07)] rounded-2xl p-8">
+    <div className="bg-[#12151c] border border-[rgba(253,251,247,0.12)] rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      {/* Workbench Header */}
+      <div className="flex items-center justify-between pb-6 border-b border-[rgba(253,251,247,0.08)] mb-6">
+        <div>
+          <h3 className="font-marcellus text-xl text-[#fdfbf7]">Specimen Deposition Stage</h3>
+          <p className="text-xs font-mono text-[#94a3b8] mt-0.5">Optical comparator & shadowgraph receiver</p>
+        </div>
+        <div className="font-mono text-xs px-2.5 py-1 rounded bg-[#181c25] border border-[rgba(253,251,247,0.1)] text-[#f59e0b]">
+          BAY 01
+        </div>
+      </div>
+
+      {uploadError && (
+        <div className="mb-4 p-3 bg-[rgba(185,28,28,0.15)] border border-[rgba(185,28,28,0.4)] text-[#ef4444] text-xs font-mono rounded-lg flex items-center gap-2">
+          <span>⚠️</span>
+          <span>{uploadError}</span>
+        </div>
+      )}
+
+      {/* Main Dropzone / Optical Stage */}
       <div
         role="button"
         tabIndex={0}
-        aria-label="Upload dosa image for analysis"
+        aria-label="Upload dosa image for optical metrology analysis"
         onClick={() => fileInputRef.current?.click()}
         onKeyDown={handleKeyDown}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`border-2 border-dashed ${
-          isDragOver ? 'border-[#f59e0b] bg-[rgba(245,158,11,0.05)]' : 'border-[rgba(245,158,11,0.3)]'
-        } rounded-xl min-h-[220px] flex items-center justify-center cursor-pointer transition-all mb-6 relative overflow-hidden focus:outline-2 focus:outline-[#f59e0b] focus:outline-offset-2`}
+        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 min-h-[260px] flex flex-col items-center justify-center ${
+          isDragOver
+            ? 'border-[#f59e0b] bg-[rgba(245,158,11,0.08)] scale-[0.99]'
+            : 'border-[rgba(253,251,247,0.15)] bg-[#0e1015] hover:border-[rgba(245,158,11,0.5)] hover:bg-[#12151c]'
+        }`}
       >
+        {/* Kolam Corner Brackets */}
+        <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[rgba(253,251,247,0.3)] pointer-events-none" />
+        <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[rgba(253,251,247,0.3)] pointer-events-none" />
+        <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[rgba(253,251,247,0.3)] pointer-events-none" />
+        <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[rgba(253,251,247,0.3)] pointer-events-none" />
+
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*"
+          accept="image/png, image/jpeg, image/webp"
           onChange={handleFileInput}
           className="hidden"
-          aria-label="Choose dosa image file"
+          id="dosa-upload"
         />
-        
-        {preview ? (
-          <div className="text-center w-full p-8">
-            {preview === 'sample' ? (
-              <div className="w-[100px] h-[100px] mx-auto mb-4 rounded-[50%_48%_52%_49%/51%_47%_53%_50%] bg-[radial-gradient(ellipse_at_35%_35%,#f5c842,#c47a15_60%,#8a4a08)] shadow-[0_0_30px_rgba(245,158,11,0.4)]" />
-            ) : (
-              <img src={preview} alt="Dosa specimen" className="max-w-full h-[200px] object-contain rounded-lg mx-auto" />
-            )}
-            <p className="mt-2 text-sm text-[#8b98b0]">{fileName}</p>
+
+        {previewUrl ? (
+          <div className="relative w-full max-h-[210px] flex flex-col items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={previewUrl}
+              alt="Uploaded specimen"
+              className="max-h-[160px] max-w-full rounded-lg object-contain shadow-lg border border-[rgba(253,251,247,0.2)] bg-[#141720]"
+            />
+            <p className="mt-3 font-mono text-xs text-[#f59e0b] truncate max-w-[280px]">
+              {fileName || 'Specimen Ready for Scan'}
+            </p>
           </div>
         ) : (
-          <div className="text-center">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-[50%_48%_52%_49%/51%_47%_53%_50%] bg-[radial-gradient(ellipse,#f5c842,#c47a15)] opacity-40 animate-wobble" />
-            <p className="text-[#8b98b0] mb-1">Drop your dosa here</p>
-            <span className="text-sm text-[#4a5568]">or click to upload</span>
+          <div className="space-y-3 pointer-events-none">
+            {/* Calibration Icon Reticle */}
+            <div className="w-16 h-16 mx-auto rounded-full border border-[rgba(253,251,247,0.2)] flex items-center justify-center bg-[#151922] text-[#f59e0b]">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="12" cy="12" r="9" strokeDasharray="3 3" />
+                <circle cx="12" cy="12" r="4" />
+                <line x1="12" y1="3" x2="12" y2="7" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+                <line x1="3" y1="12" x2="7" y2="12" />
+                <line x1="17" y1="12" x2="21" y2="12" />
+              </svg>
+            </div>
+            <div className="font-marcellus text-base text-[#fdfbf7]">
+              Drop specimen photo or click to browse
+            </div>
+            <p className="text-xs font-mono text-[#94a3b8]">
+              Supports PNG, JPG, WebP (100% Client-Side Private)
+            </p>
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <button
-          onClick={() => fileInputRef.current?.click()}
-          className="px-4 py-3 rounded-lg bg-[#161e30] border border-[rgba(255,255,255,0.07)] text-[#e2e8f0] font-semibold text-sm transition-all hover:bg-[rgba(255,255,255,0.08)] focus:outline-2 focus:outline-[#f59e0b] focus:outline-offset-2"
-        >
-          📁 Choose Image
-        </button>
-        <button
-          onClick={startAnalysis}
-          disabled={!canAnalyze}
-          className="px-4 py-3 rounded-lg bg-gradient-to-r from-[#f59e0b] to-[#ea580c] text-black font-bold text-sm transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(245,158,11,0.5)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus:outline-2 focus:outline-[#f59e0b] focus:outline-offset-2"
-        >
-          🔬 Analyze Circularity
-        </button>
+      {/* Pre-calibrated Reference Samples */}
+      <div className="mt-6 pt-6 border-t border-[rgba(253,251,247,0.08)]">
+        <div className="text-xs font-mono text-[#94a3b8] uppercase tracking-wider mb-3 flex items-center justify-between">
+          <span>Or load calibrated reference sample:</span>
+          <span className="text-[#64748b]">SYNTHETIC REF</span>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2.5">
+          <button
+            type="button"
+            onClick={() => loadSample(1)}
+            disabled={isBusy}
+            className={`px-3 py-2.5 rounded-lg border text-left transition-all ${
+              selectedSample === 1
+                ? 'bg-[#181c25] border-[#f59e0b] text-[#f59e0b]'
+                : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
+            }`}
+          >
+            <div className="font-mono text-[0.65rem] text-[#10b981] font-semibold">CLASS A</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">Grandma Special</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~97% Circular</div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => loadSample(3)}
+            disabled={isBusy}
+            className={`px-3 py-2.5 rounded-lg border text-left transition-all ${
+              selectedSample === 3
+                ? 'bg-[#181c25] border-[#f59e0b] text-[#f59e0b]'
+                : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
+            }`}
+          >
+            <div className="font-mono text-[0.65rem] text-[#f59e0b] font-semibold">CLASS B</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">Schrödinger Oval</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~61% Circular</div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => loadSample(2)}
+            disabled={isBusy}
+            className={`px-3 py-2.5 rounded-lg border text-left transition-all ${
+              selectedSample === 2
+                ? 'bg-[#181c25] border-[#f59e0b] text-[#f59e0b]'
+                : 'bg-[#0e1015] border-[rgba(253,251,247,0.1)] text-[#94a3b8] hover:border-[rgba(253,251,247,0.25)] hover:text-[#fdfbf7]'
+            }`}
+          >
+            <div className="font-mono text-[0.65rem] text-[#b91c1c] font-semibold">CLASS F</div>
+            <div className="text-xs font-medium truncate text-[#fdfbf7]">Tragic Rectangle</div>
+            <div className="font-mono text-[0.68rem] text-[#94a3b8]">~24% Circular</div>
+          </button>
+        </div>
       </div>
 
-      <div>
-        <p className="text-sm text-[#8b98b0] mb-3">No dosa? Try a sample:</p>
-        <div className="grid grid-cols-3 gap-2">
-          {[1, 2, 3].map(n => (
-            <button
-              key={n}
-              onClick={() => loadSample(n)}
-              className={`bg-[#161e30] border ${
-                selectedSample === n ? 'border-[#f59e0b]' : 'border-[rgba(255,255,255,0.07)]'
-              } text-[#e2e8f0] px-2.5 py-2.5 rounded-lg cursor-pointer text-xs transition-all hover:border-[#f59e0b] hover:bg-[rgba(245,158,11,0.08)] text-center focus:outline-2 focus:outline-[#f59e0b] focus:outline-offset-2`}
-            >
-              {n === 1 && '🟡'} {n === 2 && '🟠'} {n === 3 && '🟤'} Sample #{n}
-              <br />
-              <small className="text-[#8b98b0] text-[0.7rem]">
-                {n === 1 && 'The Grandma Special'}
-                {n === 2 && 'The Tragic Rectangle'}
-                {n === 3 && 'The Philosophical Oval'}
-              </small>
-            </button>
-          ))}
-        </div>
+      {/* Main Trigger Action */}
+      <div className="mt-6">
+        <button
+          type="button"
+          disabled={!canAnalyze}
+          onClick={handleAnalyzeClick}
+          className={`w-full py-4 px-6 rounded-xl font-semibold text-sm tracking-wider uppercase font-mono transition-all flex items-center justify-center gap-3 ${
+            canAnalyze
+              ? 'bg-[#f59e0b] hover:bg-[#d97706] text-[#0c0e12] cursor-pointer shadow-[0_4px_20px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_28px_rgba(245,158,11,0.45)]'
+              : 'bg-[#161922] text-[#475569] border border-[rgba(253,251,247,0.06)] cursor-not-allowed'
+          }`}
+        >
+          <span>Initiate U-2-Net Metrology Scan</span>
+          <span className="text-base font-bold">⚡</span>
+        </button>
       </div>
     </div>
   );

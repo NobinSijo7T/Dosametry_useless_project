@@ -2,37 +2,80 @@
 
 import { DosaSample, Verdict } from '@/types';
 
+// Deterministic specimen SVG representations for calibration references
+export const SAMPLE_1_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="#141720"/>
+  <circle cx="200" cy="200" r="160" fill="#222733" stroke="#2e3547" stroke-width="4"/>
+  <circle cx="200" cy="200" r="130" fill="#ca7a17" stroke="#78350f" stroke-width="5"/>
+  <circle cx="200" cy="200" r="110" fill="#e69d2d" opacity="0.9"/>
+  <circle cx="200" cy="200" r="75" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="170" cy="180" r="15" fill="#a0500a" opacity="0.6"/>
+  <circle cx="220" cy="210" r="18" fill="#a0500a" opacity="0.6"/>
+  <circle cx="190" cy="230" r="12" fill="#78350f" opacity="0.5"/>
+</svg>
+`)}`;
+
+export const SAMPLE_2_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="#141720"/>
+  <circle cx="200" cy="200" r="160" fill="#222733" stroke="#2e3547" stroke-width="4"/>
+  <!-- Oblong / Rectangular Dosa -->
+  <rect x="90" y="140" width="220" height="110" rx="20" fill="#ca7a17" stroke="#78350f" stroke-width="5"/>
+  <rect x="110" y="155" width="180" height="80" rx="15" fill="#e69d2d" opacity="0.9"/>
+  <circle cx="150" cy="190" r="14" fill="#a0500a" opacity="0.6"/>
+  <circle cx="230" cy="185" r="16" fill="#a0500a" opacity="0.6"/>
+</svg>
+`)}`;
+
+export const SAMPLE_3_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect width="400" height="400" fill="#141720"/>
+  <circle cx="200" cy="200" r="160" fill="#222733" stroke="#2e3547" stroke-width="4"/>
+  <!-- Elliptical / Oval Dosa -->
+  <ellipse cx="200" cy="200" rx="145" ry="95" fill="#ca7a17" stroke="#78350f" stroke-width="5"/>
+  <ellipse cx="200" cy="200" rx="120" ry="75" fill="#e69d2d" opacity="0.9"/>
+  <circle cx="180" cy="195" r="16" fill="#a0500a" opacity="0.6"/>
+  <circle cx="230" cy="205" r="14" fill="#a0500a" opacity="0.6"/>
+</svg>
+`)}`;
+
 export const SAMPLES: Record<number, DosaSample> = {
   1: {
     name: 'The Grandma Special',
     score: 97.3,
-    description: 'A near-perfect specimen. The edges are crisp, the surface uniform, and the spirit of three generations of South Indian culinary mastery is palpable.'
+    description: 'A near-perfect specimen. The edges are crisp, the surface uniform, and the spirit of three generations of South Indian culinary mastery is palpable.',
+    imageUrl: SAMPLE_1_IMAGE,
   },
   2: {
     name: 'The Tragic Rectangle',
     score: 23.7,
-    description: 'We are not sure what happened here. This dosa appears to have given up midway through its journey. A forensic investigation is ongoing.'
+    description: 'We are not sure what happened here. This dosa appears to have given up midway through its journey. A forensic investigation is ongoing.',
+    imageUrl: SAMPLE_2_IMAGE,
   },
   3: {
     name: 'The Philosophical Oval',
     score: 61.2,
-    description: 'The dosa seems to be asking existential questions. It is not a circle, but it is also not not a circle. Schrödinger\'s dosa.'
-  }
+    description: 'The dosa seems to be asking existential questions. It is not a circle, but it is also not not a circle. Schrödinger\'s dosa.',
+    imageUrl: SAMPLE_3_IMAGE,
+  },
 };
 
 export const ANALYSIS_STEPS = [
-  '> Loading tawa sensor array...',
-  '> Initializing Hough Circle Transform...',
-  '> Calibrating fermentation detection module...',
-  '> Applying neural dosa network (layer 1/847)...',
-  '> Running isoperimetric inequality check...',
-  '> Querying grandmother database...',
-  '> Computing Fourier decomposition of edges...',
-  '> Measuring sambar eligibility coefficient...',
-  '> Consulting the ancient scrolls of circularity...',
-  '> Calculating existential regret index...',
-  '> Performing quantum crispiness collapse...',
-  '> Generating shame report...',
+  '> Positioning specimen on Stage 01...',
+  '> Initializing ONNX Runtime Web execution session...',
+  '> Preprocessing image into 320x320 NCHW tensor...',
+  '> Executing U-2-Net salient foreground inference...',
+  '> Extracting composite probability mask (layer 1959)...',
+  '> Applying morphological connected component labeling...',
+  '> Isolating primary culinary specimen from background...',
+  '> Tracing Moore-Neighbor outer boundary contour...',
+  '> Calculating Shoelace area and arc-length perimeter...',
+  '> Computing Isoperimetric Roundness Index (4πA/P²)...',
+  '> Evaluating radial deviation jitter (σ)...',
+  '> Modeling Sambar dipping capillary surface tension...',
+  '> Querying Amma heuristic approval matrix...',
+  '> Generating official Class 0 Metrology Certificate...',
   '> Analysis complete.',
 ];
 

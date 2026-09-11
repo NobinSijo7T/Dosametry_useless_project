@@ -4,57 +4,86 @@ import { useEffect, useState } from 'react';
 import DosaCSSArt from './DosaCSSArt';
 
 export default function Hero() {
-  const [dosaCount, setDosaCount] = useState(2847391);
+  const [specimenCount, setSpecimenCount] = useState(2847391);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDosaCount(prev => prev + Math.floor(Math.random() * 3));
-    }, 2000);
+      setSpecimenCount(prev => prev + Math.floor(Math.random() * 2) + 1);
+    }, 2800);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <header className="relative z-[1] min-h-screen grid grid-cols-1 md:grid-cols-2 items-center gap-16 px-[5%] pt-32 pb-16 max-w-[1400px] mx-auto">
-      <div className="hero-content">
-        <div className="inline-block bg-gradient-to-r from-[rgba(245,158,11,0.2)] to-[rgba(234,88,12,0.2)] border border-[rgba(245,158,11,0.4)] text-[#f59e0b] px-5 py-1.5 rounded-full text-sm font-mono mb-6 animate-pulse-badge">
-          🏆 World's #1 Dosa Analysis Platform
-        </div>
-        <h1 className="font-orbitron text-[clamp(3rem,6vw,5.5rem)] leading-[1.05] font-black tracking-tight mb-6">
-          <span className="block">Dosa</span>
-          <span className="block bg-gradient-to-r from-[#f59e0b] to-[#ea580c] bg-clip-text text-transparent">Circularity</span>
-          <span className="block">Analyzer<sup>™</sup></span>
-        </h1>
-        <p className="text-lg text-[#8b98b0] mb-8 max-w-[520px] leading-7">
-          Powered by <strong className="text-[#e2e8f0]">AI</strong>, <strong className="text-[#e2e8f0]">Machine Learning</strong>, <strong className="text-[#e2e8f0]">Deep Learning</strong>, 
-          <strong className="text-[#e2e8f0]"> Blockchain</strong>, and <strong className="text-[#e2e8f0]">the tears of disappointed grandmothers</strong>.
-        </p>
-        <div className="flex gap-4 mb-8 flex-wrap">
-          <div className="bg-[#111827] border border-[rgba(255,255,255,0.07)] rounded-xl px-5 py-3 text-center">
-            <span className="block font-orbitron text-xl text-[#f59e0b] font-bold">{dosaCount.toLocaleString('en-IN')}</span>
-            <span className="block text-[0.7rem] text-[#8b98b0] uppercase tracking-wider mt-0.5">Dosas Analyzed</span>
-          </div>
-          <div className="bg-[#111827] border border-[rgba(255,255,255,0.07)] rounded-xl px-5 py-3 text-center">
-            <span className="block font-orbitron text-xl text-[#f59e0b] font-bold">0</span>
-            <span className="block text-[0.7rem] text-[#8b98b0] uppercase tracking-wider mt-0.5">Perfect Circles Found</span>
-          </div>
-          <div className="bg-[#111827] border border-[rgba(255,255,255,0.07)] rounded-xl px-5 py-3 text-center">
-            <span className="block font-orbitron text-xl text-[#f59e0b] font-bold">∞</span>
-            <span className="block text-[0.7rem] text-[#8b98b0] uppercase tracking-wider mt-0.5">Amma Disappointments</span>
-          </div>
-        </div>
-        <a 
-          href="#analyzer" 
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#f59e0b] to-[#ea580c] text-black font-orbitron font-bold text-sm px-8 py-4 rounded-xl tracking-wider transition-all hover:-translate-y-1 shadow-[0_4px_20px_rgba(245,158,11,0.4)] hover:shadow-[0_8px_32px_rgba(245,158,11,0.6)]"
-        >
-          <span>Analyze My Dosa</span>
-          <span className="transition-transform group-hover:translate-x-1">→</span>
-        </a>
-        <p className="text-[0.72rem] text-[#4a5568] mt-3 italic">
-          * Results may cause existential dread. Not liable for dosa-related emotional damage.
-        </p>
-      </div>
+    <header className="relative z-[1] min-h-[90vh] flex flex-col justify-center px-6 lg:px-12 pt-32 pb-16 max-w-[1440px] mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        {/* Left Column: Authoritative Academic Headline & Telemetry */}
+        <div className="lg:col-span-6 xl:col-span-7 space-y-8">
+          <h1 className="font-marcellus text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal text-[#fdfbf7] tracking-tight leading-[1.08]">
+            National Directorate for Dosa Circularity.
+          </h1>
 
-      <DosaCSSArt />
+          <p className="text-lg sm:text-xl text-[#94a3b8] max-w-[620px] leading-relaxed font-light">
+            Applying sub-millimeter polar coordinate metrology, fluid vortex dynamics, and matriarchal heuristic modeling to evaluate the radial perfection of South Indian dosas.
+          </p>
+
+          {/* Calibrated Laboratory Telemetry Cards */}
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-[560px]">
+            <div className="bg-[#141720] border border-[rgba(253,251,247,0.1)] rounded-xl p-4 text-left shadow-sm">
+              <span className="block font-mono text-xl sm:text-2xl font-bold text-[#f59e0b]">
+                {specimenCount.toLocaleString('en-IN')}
+              </span>
+              <span className="block text-[0.7rem] font-mono text-[#94a3b8] uppercase tracking-wider mt-1">
+                Specimens Inspected
+              </span>
+            </div>
+
+            <div className="bg-[#141720] border border-[rgba(253,251,247,0.1)] rounded-xl p-4 text-left shadow-sm">
+              <span className="block font-mono text-xl sm:text-2xl font-bold text-[#fdfbf7]">
+                0
+              </span>
+              <span className="block text-[0.7rem] font-mono text-[#94a3b8] uppercase tracking-wider mt-1">
+                Platonic Ideals
+              </span>
+            </div>
+
+            <div className="bg-[#141720] border border-[rgba(253,251,247,0.1)] rounded-xl p-4 text-left shadow-sm">
+              <span className="block font-mono text-xl sm:text-2xl font-bold text-[#b91c1c]">
+                99.8%
+              </span>
+              <span className="block text-[0.7rem] font-mono text-[#94a3b8] uppercase tracking-wider mt-1">
+                Amma Skepticism
+              </span>
+            </div>
+          </div>
+
+          {/* Action Bay */}
+          <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <a
+              href="#analyzer"
+              className="inline-flex items-center gap-3 bg-[#f59e0b] hover:bg-[#d97706] text-[#0c0e12] font-semibold text-sm px-8 py-4 rounded-xl transition-all shadow-[0_4px_24px_rgba(245,158,11,0.25)] hover:shadow-[0_6px_32px_rgba(245,158,11,0.4)] tracking-wide"
+            >
+              <span>Initiate Specimen Analysis</span>
+              <span className="text-lg font-bold">→</span>
+            </a>
+
+            <a
+              href="#ticker"
+              className="inline-flex items-center gap-2 text-sm text-[#94a3b8] hover:text-[#fdfbf7] px-6 py-4 rounded-xl border border-[rgba(253,251,247,0.12)] hover:border-[rgba(253,251,247,0.3)] transition-all font-mono"
+            >
+              <span>View Metrology Bulletin</span>
+            </a>
+          </div>
+
+          <p className="text-xs text-[#64748b] font-mono leading-relaxed pt-2">
+            * Calibrated under ISO/IEC 17025 satirical standards. All calculations executed via deterministic pseudo-random seed sequences.
+          </p>
+        </div>
+
+        {/* Right Column: High-Precision Metrology Reticle Showcase */}
+        <div className="lg:col-span-6 xl:col-span-5 flex justify-center items-center">
+          <DosaCSSArt />
+        </div>
+      </div>
     </header>
   );
 }

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-12T00:07:00Z",
+  "title": "Design System: Dosa Circularity Analyzer",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Tawa Ghee Amber",
+        "canonical": "#f59e0b",
+        "tonalRamp": ["#fef3c7", "#fde68a", "#f59e0b", "#e69d2d", "#ca7a17", "#d97706", "#a0500a", "#78350f", "#451a03", "#92400e"]
+      },
+      "seal-crimson": {
+        "role": "secondary",
+        "displayName": "Wax Seal Crimson",
+        "canonical": "#b91c1c",
+        "tonalRamp": ["#fee2e2", "#f87171", "#dc2626", "#b91c1c", "#7f1d1d"]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Seasoned Iron Canvas",
+        "canonical": "#0c0e12",
+        "tonalRamp": ["#1c212d", "#181c25", "#12151c", "#0e1015", "#0c0e12"]
+      },
+      "chalk-ivory": {
+        "role": "neutral",
+        "displayName": "Rice Chalk Ivory",
+        "canonical": "#fdfbf7",
+        "tonalRamp": ["#ffffff", "#fdfbf7", "#f1ede4", "#e2ded5"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Marcellus Display",
+        "purpose": "Authoritative National Directorate headlines and academic seals."
+      },
+      "body": {
+        "displayName": "Albert Sans",
+        "purpose": "Clean, highly readable technical body and user interface labels."
+      },
+      "mono": {
+        "displayName": "Inconsolata Telemetry",
+        "purpose": "Coordinate angles, vernier dimensions, logs, and citation references."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ghee-glow",
+        "value": "0 4px 24px rgba(245, 158, 11, 0.25)",
+        "purpose": "Soft warm radiation around primary interactive triggers and gold medals."
+      },
+      {
+        "name": "wax-seal-emboss",
+        "value": "0 4px 14px rgba(185, 28, 28, 0.4)",
+        "purpose": "Physical stamp depth on official verification seals."
+      }
+    ],
+    "motion": [
+      {
+        "name": "polar-sweep",
+        "value": "linear 6s infinite",
+        "purpose": "Continuous optical comparator radar sweep animation."
+      },
+      {
+        "name": "reticle-breathe",
+        "value": "ease-in-out 4s infinite",
+        "purpose": "Subtle breathing effect on laser measurement reticles."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Scan Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action button triggering optical metrology calibration.",
+      "html": "<button class=\"dmd-btn-primary\">Initiate Polar Metrology Scan ⚡</button>",
+      "css": ".dmd-btn-primary { background: #f59e0b; color: #0c0e12; font-family: 'Inconsolata', monospace; font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 16px 32px; border-radius: 12px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3); } .dmd-btn-primary:hover { background: #d97706; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(245, 158, 11, 0.45); }"
+    },
+    {
+      "name": "Vermilion Wax Seal",
+      "kind": "custom",
+      "refersTo": "wax-seal-badge",
+      "description": "Official verification seal applied to Class 0 certified specimens.",
+      "html": "<div class=\"dmd-wax-seal\"><span class=\"sub\">METROLOGY</span><span class=\"grade\">CLASS 0</span><span class=\"status\">VERIFIED</span></div>",
+      "css": ".dmd-wax-seal { width: 80px; height: 80px; border-radius: 9999px; background: radial-gradient(circle at 35% 35%, #dc2626 0%, #991b1b 65%, #7f1d1d 100%); box-shadow: 0 4px 14px rgba(185, 28, 28, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.25), inset 0 -2px 4px rgba(0, 0, 0, 0.4); border: 1px solid rgba(254, 202, 202, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(4deg); text-align: center; } .dmd-wax-seal .sub { font-family: 'Inconsolata', monospace; font-size: 0.45rem; color: #fee2e2; letter-spacing: 0.1em; } .dmd-wax-seal .grade { font-family: 'Marcellus', serif; font-size: 0.75rem; color: #fef2f2; font-weight: bold; margin: 2px 0; } .dmd-wax-seal .status { font-family: 'Inconsolata', monospace; font-size: 0.45rem; color: #fecaca; letter-spacing: 0.15em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The National Directorate for Dosa Circularity",
+    "overview": "A fusion of ancient Indian sacred radial geometry and the exacting precision of an unyielding national standards and calibration bureau. Built with seasoned cast-iron materiality, rice-flour chalk geometry lines, warm golden ghee roast highlights, and deadpan academic wit.",
+    "keyCharacteristics": [
+      "Authentic seasoned cast-iron dark canvas (#0c0e12) replacing generic cyberpunk themes",
+      "Concentric polar reticle geometry with 360-degree ticks and Kolam corner alignment brackets",
+      "Academic typography hierarchy: Marcellus (display), Albert Sans (body), Inconsolata (telemetry)",
+      "Pure client-side privacy-preserving optical simulation"
+    ],
+    "rules": [
+      {
+        "name": "The Tawa Contrast Rule",
+        "body": "Text never uses gradient fills. Emphasis is achieved strictly through scale, weight, and the crisp contrast between chalk ivory and deep seasoned iron.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single World Rule",
+        "body": "All UI elements, from navigation to the results report, speak the single vocabulary of the National Metrology Directorate.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do maintain the deadpan academic research tone throughout all UI copy and metrics",
+      "Do use Marcellus for display titles and Inconsolata for coordinates and telemetry",
+      "Do respect prefers-reduced-motion across radar sweeps and animations"
+    ],
+    "donts": [
+      "Don't use text gradients, glowing neon cyber cards, or generic SaaS marketing eyebrows",
+      "Don't use generic stock sans-serif fonts for numerical coordinates or headings",
+      "Don't upload user photos to remote servers; maintain pure browser-based client-side evaluation"
+    ]
+  }
+}

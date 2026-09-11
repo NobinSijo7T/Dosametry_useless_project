@@ -15,15 +15,32 @@ The **Dosa Circularity Analyzer™** is a humorous web application that uses "cu
 
 ## ✨ Features
 
-- 🔬 **"AI-Powered" Analysis** - Sophisticated algorithms that are actually just `Math.random()`
-- 📊 **Comprehensive Scoring** - Get a circularity percentage and classification from "Platonic Ideal" to "Geometrical Crime"
-- 🎨 **Beautiful CSS Dosa Art** - Pure CSS dosa illustrations with animations
-- 📈 **Fake Metrics** - Roundness Index, Edge Jitter, Sambar Eligibility, Amma Approval, and more
-- 🏆 **Global Leaderboard** - Hall of fame featuring the finest (fictional) circular dosas
-- 🎮 **Easter Eggs** - Konami Code support (coming soon)
+### Core Features
+- 🔬 **Real U-2-Net Analysis** - Actual neural network segmentation for precise dosa boundary detection
+- 📊 **Geometric Circularity** - Real mathematical calculation: C = 4πA/P²
+- 🎨 **Beautiful Visualizations** - Canvas-based contour overlay with detected boundaries
+- 📈 **Comprehensive Metrics** - Roundness Index, Edge Jitter, Diameter, Sambar Eligibility
 - ♿ **Accessible** - ARIA labels, keyboard navigation, reduced-motion support
-- 🔒 **Secure** - No unsafe HTML injection, client-side only processing
+- 🔒 **Privacy-First** - 100% client-side processing, no image uploads, no tracking
 - ⚡ **Built with Next.js** - Server-side rendering, optimized performance, modern React
+
+### 🆕 New Features (2024)
+
+#### Malayalam Amma Mode 👩‍🍳
+- **Deterministic maternal verdict** based on actual circularity metrics
+- **Three languages**: മലയാളം (Malayalam, default), Manglish, English
+- **Approval score meter** (0-100%) with animated display
+- **Category-based verdicts**: Perfect, Excellent, Acceptable, Questionable, Disaster
+- **Official maternal inspection styling** with decorative accents
+
+#### Dosa Passport 📋
+- **Official document layout** with specimen ID (DOSA-XXXX-XXXX)
+- **Complete metrology report** with all analysis metrics
+- **Amma inspection section** with selected verdict
+- **Print-ready A4 format** with proper margins and colors
+- **Malayalam Unicode support** in print output
+- **Wax seal certification** badge
+- **Export as PDF** using browser print dialog
 
 ## 🚀 Getting Started
 
@@ -37,10 +54,36 @@ The **Dosa Circularity Analyzer™** is a humorous web application that uses "cu
 1. **Clone the repository:**
 ```bash
 git clone https://github.com/NobinSijo7T/ds.git
-cd ds/dosa-analyzer
+cd ds
 ```
 
-2. **Install dependencies:**
+2. **Download U-2-Net Model:**
+
+The U-2-Net ONNX model is required for real dosa segmentation analysis but is not included in the repository due to its size (~170MB).
+
+**Download Link:** [U-2-Net ONNX Model (Google Drive)](https://drive.google.com/file/d/1-YOUR-SHARED-LINK/view?usp=sharing)
+
+After downloading:
+```bash
+# Create the model directory
+mkdir -p public/U-2-Net/onnx
+
+# Extract and place the model.onnx file in:
+# public/U-2-Net/onnx/model.onnx
+```
+
+Or if you already have the model elsewhere, create a symbolic link:
+```bash
+# Windows (PowerShell as Admin)
+New-Item -ItemType SymbolicLink -Path "public\U-2-Net" -Target "C:\path\to\your\U-2-Net\folder"
+
+# Linux/Mac
+ln -s /path/to/your/U-2-Net/folder public/U-2-Net
+```
+
+**Alternative:** The app will work without the model in demo mode (mock analysis).
+
+3. **Install dependencies:**
 ```bash
 npm install
 # or
@@ -49,7 +92,7 @@ yarn install
 pnpm install
 ```
 
-3. **Run the development server:**
+4. **Run the development server:**
 ```bash
 npm run dev
 # or
@@ -58,7 +101,7 @@ yarn dev
 pnpm dev
 ```
 
-4. **Open your browser:**
+5. **Open your browser:**
 Navigate to [http://localhost:3000](http://localhost:3000)
 
 ### Build for Production
