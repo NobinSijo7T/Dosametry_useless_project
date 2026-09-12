@@ -47,7 +47,13 @@ QUICK_START_AMMA_MODE.md
 DEPLOYMENT.md
 
 # Assets for documentation (keep essential public assets)
-assets
+# Exclude demo assets but keep logo
+assets/*.png
+assets/*.mp4
+assets/demo.*
+
+# But keep logo directory
+!assets/logo
 
 # U-2-Net model (too large - will be downloaded at runtime)
 U-2-Net
