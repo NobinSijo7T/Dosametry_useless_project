@@ -169,15 +169,10 @@ flowchart TB
 
 # Video
 
-<video 
-  src="https://github.com/NobinSijo7T/Dosametry_useless_project/raw/main/assets/demo.mp4"
-  controls
-  muted
-  playsinline
-  width="100%"
-  poster="https://github.com/NobinSijo7T/Dosametry_useless_project/raw/main/assets/1.png">
-  Your browser does not support the video tag.
-</video>
+
+https://github.com/user-attachments/assets/1f01091a-a0f5-4d2e-9177-c807112f52e0
+
+
 
 > **Note:** If the video doesn't play above, [download it here](https://github.com/NobinSijo7T/Dosametry_useless_project/raw/main/assets/demo.mp4) or view it directly in the repository.
 
