@@ -66,8 +66,13 @@ cd Dosametry_useless_project
 npm install
 
 # Download U-2-Net Model (170MB)
-# Place model.onnx in: public/U-2-Net/onnx/model.onnx
-# Download link: [Contact team for model file]
+# Download from: https://drive.google.com/uc?export=download&id=1ao1ovG1Qtx4b7EoskHXmi2E9rp5CHLcZ
+# Or use wget:
+# wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=1ao1ovG1Qtx4b7EoskHXmi2E9rp5CHLcZ' -O u2net.onnx
+
+# Create directory and place model
+mkdir -p public/U-2-Net/onnx
+# Move downloaded model.onnx to: public/U-2-Net/onnx/model.onnx
 ```
 
 # Run
@@ -100,14 +105,73 @@ For Software:
 
 # Diagrams
 
-![Workflow Diagram](https://via.placeholder.com/800x400/0c0e12/f59e0b?text=User+Upload+%E2%86%92+U-2-Net+Segmentation+%E2%86%92+Geometry+Calculation+%E2%86%92+Circularity+Score+%E2%86%92+Amma+Verdict+%E2%86%92+Passport+Generation)
+```mermaid
+graph LR
+    A[👤 User Upload<br/>Dosa Image] --> B[🧠 U-2-Net ONNX<br/>Inference]
+    B --> C[📐 Contour<br/>Extraction]
+    C --> D[🔢 Geometric Analysis<br/>Area, Perimeter, Centroid]
+    D --> E[⭕ Circularity Formula<br/>C = 4πA/P²]
+    E --> F[👩‍🍳 Amma Verdict<br/>Engine]
+    F --> G[📋 Dosa Passport<br/>Generation]
+    G --> H[🖨️ Print/Export<br/>Certificate]
+    
+    style A fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#0c0e12
+    style B fill:#10b981,stroke:#059669,stroke-width:2px,color:#0c0e12
+    style C fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+    style D fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#fff
+    style E fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style F fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#0c0e12
+    style G fill:#14b8a6,stroke:#0d9488,stroke-width:2px,color:#0c0e12
+    style H fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#fff
+```
+
 *Application workflow: Image upload → U-2-Net ONNX inference → Contour extraction → Geometric analysis (area, perimeter, centroid) → Circularity formula (4πA/P²) → Deterministic Amma verdict engine → Print-ready passport generation*
+
+## System Architecture
+
+```mermaid
+flowchart TB
+    subgraph Client["🌐 Client-Side (Browser)"]
+        UI[⚛️ Next.js/React UI]
+        Canvas[🎨 Canvas API<br/>Visualizations]
+        Lenis[📜 Lenis<br/>Smooth Scroll]
+    end
+    
+    subgraph Processing["🔬 Analysis Engine"]
+        ONNX[🧠 ONNX Runtime Web<br/>U-2-Net Model]
+        Geo[📐 Geometry Calculator<br/>OpenCV.js Logic]
+        Amma[👩‍🍳 Amma Verdict<br/>Deterministic Engine]
+    end
+    
+    subgraph Output["📤 Output Systems"]
+        Report[📊 Results Panel<br/>Live Metrics]
+        Passport[📋 Dosa Passport<br/>Print Layout]
+        Print[🖨️ Browser Print API]
+    end
+    
+    UI -->|Image Upload| ONNX
+    ONNX -->|Segmentation Mask| Geo
+    Geo -->|Circularity Score| Amma
+    Amma -->|Verdict| Report
+    Report -->|Generate| Passport
+    Passport -->|Export| Print
+    Canvas -->|Contour Overlay| Report
+    Lenis -.->|UX Enhancement| UI
+    
+    style Client fill:#0c0e12,stroke:#f59e0b,stroke-width:3px,color:#fdfbf7
+    style Processing fill:#1a1d29,stroke:#10b981,stroke-width:3px,color:#fdfbf7
+    style Output fill:#12151c,stroke:#3b82f6,stroke-width:3px,color:#fdfbf7
+```
+
+*System architecture showing client-side processing flow, analysis engines, and output generation*
 
 ### Project Demo
 
 # Video
 
-[Demo Video](assets/demo.mp4)
+https://github.com/user-attachments/assets/demo-video-placeholder
+
+> **Note:** If the video doesn't play above, [download it here](assets/demo.mp4) or view it directly in the repository.
 
 *Complete walkthrough demonstrating: Hero section with particle canvas, dosa specimen upload, real-time U-2-Net segmentation with polar radar animation, results panel with 100% circularity score, contour overlay visualization, Malayalam Amma Mode language switcher (മലയാളം/Manglish/English), maternal verdict selection, and Dosa Passport certificate generation with print preview*
 
