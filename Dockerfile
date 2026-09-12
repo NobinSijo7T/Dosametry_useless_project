@@ -1,39 +1,47 @@
 # Dosametry - Production Dockerfile for Railway
 # Optimized for Next.js 16.3.5 with standalone output
-# Node.js 20.18.1+ required
+# IMPORTANT: Uses Node.js 20.18.1 (Required for Next.js 16)
+# Build date: 2026-09-12
 
 # Stage 1: Dependencies
-FROM node:20-alpine AS deps
+FROM node:20.18.1-alpine AS deps
 RUN apk add --no-cache libc6-compat
+
+# Verify Node version
+RUN node --version && echo "Node version verified: $(node --version)"
+
 WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json ./
 RUN npm ci --only=production
 
-# Stage 2: Builder
-FROM node:20-alpine AS builder
+# Stage 2: Builder  
+FROM node:20.18.1-alpine AS builder
 WORKDIR /app
+
+# Verify Node version in builder stage
+RUN node --version && echo "Builder using Node: $(node --version)"
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Set environment variables for build
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
 # Build Next.js app with standalone output
 RUN npm run build
 
 # Stage 3: Runner (Production)
-FROM node:20-alpine AS runner
+FROM node:20.18.1-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
