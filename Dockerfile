@@ -49,15 +49,24 @@ ENV HOSTNAME="0.0.0.0"
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy necessary files from builder
+# Copy public assets FIRST (before standalone)
 COPY --from=builder /app/public ./public
+
+# Copy standalone server files
 COPY --from=builder /app/.next/standalone ./
+
+# Copy static files
 COPY --from=builder /app/.next/static ./.next/static
 
-# Ensure WASM files have correct permissions
-RUN chmod -R 755 ./public/onnx
+# CRITICAL: Next.js standalone needs public folder in standalone output too
+# Copy public to standalone's expected location
+RUN mkdir -p ./.next/standalone/public && cp -r ./public/* ./.next/standalone/public/ || true
 
-# Set correct permissions
+# List files for debugging
+RUN echo "=== Listing public/onnx ===" && ls -la ./public/onnx/ | head -20
+RUN echo "=== Listing standalone ===" && ls -la . | head -20
+
+# Set permissions
 RUN chown -R nextjs:nodejs /app
 
 # Switch to non-root user
