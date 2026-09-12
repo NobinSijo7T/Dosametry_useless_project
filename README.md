@@ -1,308 +1,134 @@
-# 🥞 Dosa Circularity Analyzer™ - Next.js Edition
+<img width="1280" height="640" alt="Dosa Circularity Analyzer" src="https://github.com/user-attachments/assets/8920b256-2ba8-4988-b824-5351134eb4bd" />
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Next.js](https://img.shields.io/badge/Next.js-16.3-black.svg)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
-[![Status: Nobel Prize Pending](https://img.shields.io/badge/Status-Nobel%20Prize%20Pending-gold.svg)]()
+# Dosa Circularity Analyzer™ 🥞
 
-> The world's most important scientific tool for analyzing dosa circularity. Now built with Next.js, TypeScript, and Tailwind CSS!
+## Basic Details
 
-## 🎯 What is This?
+### Team Name: LOLGORITHMS
 
-The **Dosa Circularity Analyzer™** is a humorous web application that uses "cutting-edge" analysis to determine how circular your dosa is. Upload an image, get a score from 0-100%, and receive a comprehensive (and completely fake) scientific report.
+### Team Members
 
-**⚠️ Disclaimer**: This is a satirical project for entertainment purposes only. No real machine learning or AI is used. All scores are randomly generated. Not responsible for dosa-related emotional damage.
+- Team Lead: [Nobin Sijo](https://www.linkedin.com/in/nobin-sijo-n77t/) - Mar Athanasius College of Engineering
+- Member 2: [Pranav P](https://www.linkedin.com/in/pranav2109/) - Mar Athanasius College of Engineering
 
-## ✨ Features
+### Project Description
 
-### Core Features
-- 🔬 **Real U-2-Net Analysis** - Actual neural network segmentation for precise dosa boundary detection
-- 📊 **Geometric Circularity** - Real mathematical calculation: C = 4πA/P²
-- 🎨 **Beautiful Visualizations** - Canvas-based contour overlay with detected boundaries
-- 📈 **Comprehensive Metrics** - Roundness Index, Edge Jitter, Diameter, Sambar Eligibility
-- ♿ **Accessible** - ARIA labels, keyboard navigation, reduced-motion support
-- 🔒 **Privacy-First** - 100% client-side processing, no image uploads, no tracking
-- ⚡ **Built with Next.js** - Server-side rendering, optimized performance, modern React
+A satirical web application that uses real U-2-Net neural network segmentation and geometric analysis to scientifically determine how circular your dosa is. Upload a photo, get a circularity score (0-100%), and receive a comprehensive metrology report complete with Malayalam Amma Mode approval ratings and a printable Dosa Passport certificate!
 
-### 🆕 New Features (2024)
+### The Problem (that doesn't exist)
 
-#### Malayalam Amma Mode 👩‍🍳
-- **Deterministic maternal verdict** based on actual circularity metrics
-- **Three languages**: മലയാളം (Malayalam, default), Manglish, English
-- **Approval score meter** (0-100%) with animated display
-- **Category-based verdicts**: Perfect, Excellent, Acceptable, Questionable, Disaster
-- **Official maternal inspection styling** with decorative accents
+Have you ever wondered if your dosa is scientifically circular enough? Does it meet the rigorous standards of the National Metrology Directorate for Dosa Circularity? Will your Amma approve? These are the questions that keep us up at night. The world desperately needed a way to objectively measure dosa circularity using polar coordinate interferometry and matriarchal approval modeling.
 
-#### Dosa Passport 📋
-- **Official document layout** with specimen ID (DOSA-XXXX-XXXX)
-- **Complete metrology report** with all analysis metrics
-- **Amma inspection section** with selected verdict
-- **Print-ready A4 format** with proper margins and colors
-- **Malayalam Unicode support** in print output
-- **Wax seal certification** badge
-- **Export as PDF** using browser print dialog
+### The Solution (that nobody asked for)
 
-## 🚀 Getting Started
+We built a full-stack Next.js application with real U-2-Net deep learning segmentation that analyzes your dosa's geometry with mathematical precision! Upload your dosa photo, and our system performs:
+- Neural network boundary detection using U-2-Net ONNX model
+- Real circularity calculation (C = 4πA/P²)
+- Roundness index and edge jitter analysis
+- Deterministic Malayalam Amma verdict engine
+- Print-ready Dosa Passport with specimen ID
 
-### Prerequisites
+Because nothing says "I have my priorities straight" like using 170MB deep learning models to judge breakfast food!
 
-- **Node.js** 18.17 or later
-- **npm**, **yarn**, or **pnpm**
+## Technical Details
 
-### Installation
+### Technologies/Components Used
 
-1. **Clone the repository:**
+For Software:
+
+- **Languages**: TypeScript, JavaScript, CSS
+- **Frameworks**: Next.js 16.3.5, React 19
+- **Libraries**: 
+  - ONNX Runtime Web (neural network inference)
+  - Lenis (smooth scrolling)
+  - Framer Motion (animations)
+  - Lucide React (icons)
+  - Tailwind CSS (styling)
+  - Canvas API (visualizations)
+- **Tools**: 
+  - U-2-Net pre-trained model (salient object detection)
+  - TypeScript compiler
+  - ESLint
+  - Git
+
+### Implementation
+
+For Software:
+
+# Installation
+
 ```bash
-git clone https://github.com/NobinSijo7T/ds.git
-cd ds
-```
+# Clone the repository
+git clone https://github.com/NobinSijo7T/Dosametry_useless_project.git
+cd Dosametry_useless_project
 
-2. **Download U-2-Net Model:**
-
-The U-2-Net ONNX model is required for real dosa segmentation analysis but is not included in the repository due to its size (~170MB).
-
-**Download Link:** [U-2-Net ONNX Model (Google Drive)](https://drive.google.com/file/d/1-YOUR-SHARED-LINK/view?usp=sharing)
-
-After downloading:
-```bash
-# Create the model directory
-mkdir -p public/U-2-Net/onnx
-
-# Extract and place the model.onnx file in:
-# public/U-2-Net/onnx/model.onnx
-```
-
-Or if you already have the model elsewhere, create a symbolic link:
-```bash
-# Windows (PowerShell as Admin)
-New-Item -ItemType SymbolicLink -Path "public\U-2-Net" -Target "C:\path\to\your\U-2-Net\folder"
-
-# Linux/Mac
-ln -s /path/to/your/U-2-Net/folder public/U-2-Net
-```
-
-**Alternative:** The app will work without the model in demo mode (mock analysis).
-
-3. **Install dependencies:**
-```bash
+# Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
+
+# Download U-2-Net Model (170MB)
+# Place model.onnx in: public/U-2-Net/onnx/model.onnx
+# Download link: [Contact team for model file]
 ```
 
-4. **Run the development server:**
+# Run
+
 ```bash
+# Development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-5. **Open your browser:**
-Navigate to [http://localhost:3000](http://localhost:3000)
-
-### Build for Production
-
-```bash
-# Build the application
+# Production build
 npm run build
-
-# Start the production server
 npm run start
+
+# Open browser to http://localhost:3000
 ```
 
-### Export as Static Site
+### Project Documentation
 
-```bash
-# Build and export as static HTML
-npm run build
+For Software:
 
-# The static files will be in the `out` directory
-# Deploy the `out` folder to any static hosting service
-```
+# Screenshots (Add at least 3)
 
-## 🏗️ Project Structure
+![Hero Section](assets/1.png)
+*Landing page with particle effects, Malayalam tagline, and CSS-animated dosa art showcasing the National Metrology Directorate branding*
 
-```
-dosa-analyzer/
-├── app/
-│   ├── globals.css          # Global styles with custom animations
-│   ├── layout.tsx            # Root layout with metadata
-│   └── page.tsx              # Main page component
-├── components/
-│   ├── Analyzer.tsx          # Main analyzer section
-│   ├── DosaCSSArt.tsx        # CSS art dosa component
-│   ├── Hero.tsx              # Hero section
-│   ├── Navbar.tsx            # Navigation bar
-│   ├── ParticleCanvas.tsx    # Particle background animation
-│   ├── ResultsPanel.tsx      # Analysis results display
-│   ├── Ticker.tsx            # News ticker
-│   └── UploadPanel.tsx       # Image upload interface
-├── lib/
-│   ├── constants.ts          # App constants (samples, verdicts, etc.)
-│   └── utils.ts              # Utility functions
-├── types/
-│   └── index.ts              # TypeScript type definitions
-├── public/                   # Static assets
-└── package.json
-```
+![Analysis in Progress](assets/2.png)
+*Real-time U-2-Net neural network processing with polar radar animation, telemetry logs, and progress indicators showing the specimen undergoing interferometry*
 
-## 🎨 Technology Stack
+![Results & Dosa Passport](assets/3.png)
+*Complete circularity report with animated score gauge, contour overlay visualization, 6 metrology metrics (Roundness, Jitter, Sambar Eligibility, Amma Approval, Crispiness, Existential Shame), Malayalam Amma Mode verdict selector, and print-ready Dosa Passport certificate*
 
-- **[Next.js 16.3](https://nextjs.org/)** - React framework with App Router
-- **[TypeScript](https://www.typescriptlang.org/)** - Type safety and better DX
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[React 19](https://react.dev/)** - Latest React features
-- **Canvas API** - Particle background animation
-- **Custom Animations** - CSS keyframes for dosa effects
+# Diagrams
 
-## 🧪 "The Science"
+![Workflow Diagram](https://via.placeholder.com/800x400/0c0e12/f59e0b?text=User+Upload+%E2%86%92+U-2-Net+Segmentation+%E2%86%92+Geometry+Calculation+%E2%86%92+Circularity+Score+%E2%86%92+Amma+Verdict+%E2%86%92+Passport+Generation)
+*Application workflow: Image upload → U-2-Net ONNX inference → Contour extraction → Geometric analysis (area, perimeter, centroid) → Circularity formula (4πA/P²) → Deterministic Amma verdict engine → Print-ready passport generation*
 
-Our rigorous methodology includes:
+### Project Demo
 
-- **Neural Dosa Networks (NDN)** - 847-layer deep neural network*
-- **Hough Transform + Prayers** - Computer vision with statistical prayers*
-- **Quantum Crispiness Detection** - Leveraging quantum superposition*
-- **Fourier Series of Regret** - Mathematical quantification of disappointment*
-- **LLM-Powered Shame Engine** - Contextual shame calibration*
+# Video
 
-**\*None of this is real. Scores are randomly generated for comedic effect.**
+[Demo Video](assets/demo.mp4)
 
-## 📝 Scripts
+*Complete walkthrough demonstrating: Hero section with particle canvas, dosa specimen upload, real-time U-2-Net segmentation with polar radar animation, results panel with 100% circularity score, contour overlay visualization, Malayalam Amma Mode language switcher (മലയാളം/Manglish/English), maternal verdict selection, and Dosa Passport certificate generation with print preview*
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server at localhost:3000 |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint to check code quality |
+# Additional Demos
 
-## 🌐 Deployment
+- Live U-2-Net neural network inference running in browser via ONNX Runtime Web
+- Real geometric circularity calculation: C = 4πA/P² with actual contour coordinates
+- Canvas-based contour overlay with detected boundaries, centroid, and equivalent circle
+- Malayalam Unicode rendering in both UI and print output
+- Lenis smooth scrolling with momentum physics
+- Responsive design from mobile to 4K displays
+- WCAG 2.1 Level AA accessibility compliance
 
-### Vercel (Recommended)
+## Team Contributions
 
-The easiest way to deploy is using [Vercel](https://vercel.com):
-
-```bash
-npm install -g vercel
-vercel
-```
-
-Or connect your GitHub repository to Vercel for automatic deployments.
-
-### Other Platforms
-
-- **Netlify**: `npm run build` and deploy the `.next` folder
-- **AWS Amplify**: Connect your repo and use build command `npm run build`
-- **Cloudflare Pages**: Build command `npm run build`, output directory `.next`
-- **Static Export**: Add `output: 'export'` to `next.config.ts` and deploy the `out` folder
-
-## 🤝 Contributing
-
-Contributions welcome! Please feel free to submit pull requests for:
-
-- Bug fixes
-- New features (real circle detection with OpenCV.js?)
-- Accessibility improvements
-- Additional sample dosas
-- Translation to other languages
-- Additional sections (Leaderboard, Science, Testimonials)
-
-### Development Guidelines
-
-1. Use TypeScript for all new files
-2. Follow the existing component structure
-3. Add proper type definitions
-4. Maintain accessibility (ARIA labels, keyboard navigation)
-5. Test on multiple browsers and devices
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Inspired by all the perfectly imperfect dosas made around the world
-- Special thanks to every Amma who has ever sighed at an elliptical dosa
-- Dedicated to South Indian breakfast enthusiasts everywhere
-- Built with ❤️ using Next.js and modern web technologies
-
-## 📞 Contact
-
-- GitHub: [@NobinSijo7T](https://github.com/NobinSijo7T)
-- Original Repo: [https://github.com/NobinSijo7T/ds](https://github.com/NobinSijo7T/ds)
-- Issues: [Report a bug](https://github.com/NobinSijo7T/ds/issues)
-
-## 🔮 Roadmap
-
-- [ ] Add remaining sections (Science, Leaderboard, Testimonials, About)
-- [ ] Implement real OpenCV.js circle detection
-- [ ] Add image crop/rotate functionality
-- [ ] PWA support with offline capabilities
-- [ ] Social sharing with Open Graph images
-- [ ] Export results as PDF
-- [ ] Webcam capture support
-- [ ] i18n support (Tamil, Hindi, Kannada, Telugu)
-
-## 🎭 Fun Facts
-
-- The particle system uses actual Canvas API rendering
-- All animations respect `prefers-reduced-motion`
-- The dosa wobble animation uses CSS `border-radius` keyframes
-- Scores are deterministic for sample dosas, random for uploads
-- The "analysis" steps are purely theatrical
+- **Nobin Sijo**: Full-stack architecture, U-2-Net integration, geometric analysis algorithms, Malayalam Amma Mode engine, Dosa Passport print system, UI/UX design, deployment
+- **Pranav P**: Project ideation, specimen testing, Malayalam verdict curation, demo video production, documentation, quality assurance
 
 ---
 
-**Made with ❤️, Next.js, and a concerning amount of time spent on dosa-related humor.**
+Made with ❤️ at TinkerHub Useless Projects 
 
-*"The universe itself is not perfectly circular. Neither is your dosa."*
-
-## 🆚 Version Comparison
-
-| Feature | Static Version | Next.js Version |
-|---------|---------------|-----------------|
-| Framework | Vanilla JS | Next.js 16 + React 19 |
-| Type Safety | None | Full TypeScript |
-| Styling | Pure CSS | Tailwind CSS |
-| Components | N/A | Modular React components |
-| SEO | Basic | Enhanced with metadata API |
-| Performance | Good | Optimized with SSR/SSG |
-| Development | Refresh browser | Hot Module Replacement |
-| Scalability | Limited | Highly scalable |
-
-## 🔧 Troubleshooting
-
-### Port 3000 already in use
-
-```bash
-# Use a different port
-PORT=3001 npm run dev
-```
-
-### Build errors
-
-```bash
-# Clean install
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### TypeScript errors
-
-```bash
-# Regenerate type declarations
-rm -rf .next
-npm run dev
-```
-
----
-
-**Last Updated**: September 2026  
-**Next.js Version**: 16.3.5  
-**Bundle A**: ✅ Complete (Security, Accessibility, Documentation)  
-**Bundle B**: ⏳ Planned (OpenCV.js, Image Editor, Webcam, PDF Export)  
-**Bundle C**: ⏳ Planned (Authentication, Backend, Leaderboard)
+![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
+![Static Badge](https://img.shields.io/badge/UselessProjects--26-26?link=https%3A%2F%2Ftinkerhub.org%2Fevents%2F1M8ORET9A1%2Fuseless-projects-3.0)
