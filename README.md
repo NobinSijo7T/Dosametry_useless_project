@@ -1,6 +1,6 @@
-<img width="1280" height="640" alt="Dosa Circularity Analyzer" src="https://github.com/user-attachments/assets/8920b256-2ba8-4988-b824-5351134eb4bd" />
+<img width="1280" height="640" alt="Dosametry - Dosa Circularity Analyzer" src="https://github.com/user-attachments/assets/8920b256-2ba8-4988-b824-5351134eb4bd" />
 
-# Dosa Circularity Analyzer™ 🥞
+# Dosametry - Dosa Circularity Analyzer™ 🥞
 
 ## Basic Details
 
@@ -8,8 +8,8 @@
 
 ### Team Members
 
-- Team Lead: [Nobin Sijo](https://www.linkedin.com/in/nobin-sijo-n77t/) - Mar Athanasius College of Engineering
-- Member 2: [Pranav P](https://www.linkedin.com/in/pranav2109/) - Mar Athanasius College of Engineering
+- Team Lead: [Nobin Sijo](https://www.linkedin.com/in/nobin-sijo-n77t/) - College of Engineering Karunagappally
+- Member 2: [Pranav P](https://www.linkedin.com/in/pranav2109/) - College of Engineering Karunagappally
 
 ### Project Description
 
