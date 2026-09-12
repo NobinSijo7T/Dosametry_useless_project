@@ -169,11 +169,20 @@ flowchart TB
 
 # Video
 
-https://github.com/user-attachments/assets/demo-video-placeholder
+<video 
+  src="https://github.com/NobinSijo7T/Dosametry_useless_project/raw/main/assets/demo.mp4"
+  controls
+  muted
+  playsinline
+  width="100%"
+  poster="https://github.com/NobinSijo7T/Dosametry_useless_project/raw/main/assets/1.png">
+  Your browser does not support the video tag.
+</video>
 
-> **Note:** If the video doesn't play above, [download it here](assets/demo.mp4) or view it directly in the repository.
+> **Note:** If the video doesn't play above, [download it here](https://github.com/NobinSijo7T/Dosametry_useless_project/raw/main/assets/demo.mp4) or view it directly in the repository.
 
-*Complete walkthrough demonstrating: Hero section with particle canvas, dosa specimen upload, real-time U-2-Net segmentation with polar radar animation, results panel with 100% circularity score, contour overlay visualization, Malayalam Amma Mode language switcher (മലയാളം/Manglish/English), maternal verdict selection, and Dosa Passport certificate generation with print preview*
+**Complete walkthrough demonstrating:**  
+Hero section with particle canvas, dosa specimen upload, real-time U-2-Net segmentation with polar radar animation, results panel with 100% circularity score, contour overlay visualization, Malayalam Amma Mode language switcher (മലയാളം/Manglish/English), maternal verdict selection, and Dosa Passport certificate generation with print preview.
 
 # Additional Demos
 
