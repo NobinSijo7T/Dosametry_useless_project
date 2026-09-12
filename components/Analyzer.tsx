@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import UploadPanel from './UploadPanel';
 import ResultsPanel from './ResultsPanel';
-import type { AnalyzerState, AnalysisResult } from '@/types';
+import AmmaMode from './AmmaMode';
+import type { AnalyzerState, AnalysisResult, AmmaVerdict, AmmaLanguage } from '@/types';
 import type { AnalysisError } from '@/types/u2net';
 import { preprocessImage, runU2NetSegmentation } from '@/lib/u2net';
 import { analyzeDosaGeometry, deriveMetricsFromGeometry } from '@/lib/dosaGeometry';
@@ -18,7 +19,14 @@ export default function Analyzer() {
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState('');
   const [logs, setLogs] = useState<string[]>([]);
+  const [ammaVerdict, setAmmaVerdict] = useState<AmmaVerdict | null>(null);
+  const [ammaLanguage, setAmmaLanguage] = useState<AmmaLanguage>('malayalam');
   const isCancelledRef = useRef(false);
+
+  const handleVerdictChange = useCallback((verdict: AmmaVerdict, language: AmmaLanguage) => {
+    setAmmaVerdict(prev => (prev?.verdict === verdict.verdict && prev?.approvalScore === verdict.approvalScore ? prev : verdict));
+    setAmmaLanguage(prev => (prev === language ? prev : language));
+  }, []);
 
   const handleStartAnalysis = async (source: File | string, specimenName?: string) => {
     isCancelledRef.current = false;
@@ -144,30 +152,32 @@ export default function Analyzer() {
     setProgress(0);
     setLogs([]);
     setCurrentStep('');
+    setAmmaVerdict(null);
   };
 
   return (
     <section className="relative z-[1] px-6 lg:px-12 py-28 max-w-[1440px] mx-auto" id="analyzer">
       {/* Section Header */}
       <div className="max-w-[760px] mx-auto text-center mb-16 space-y-4">
-        <h2 className="font-marcellus text-3xl sm:text-4xl lg:text-5xl font-normal text-[#fdfbf7] tracking-tight">
-          Primary Calibration Bay
+        <h2 className="font-gayathri text-3xl sm:text-4xl lg:text-5xl font-bold text-[#fdfbf7] tracking-tight">
+          ദോശ പരിശോധനാ കേന്ദ്രം
         </h2>
-        <p className="text-base sm:text-lg text-[#94a3b8] leading-relaxed">
-          Subject your culinary specimen to 100% private, browser-side U-2-Net salient foreground isolation, polar boundary extraction, and isoperimetric circularity ($4\pi A / P^2$).
+        <p className="font-gayathri text-base sm:text-lg lg:text-xl text-[#94a3b8] leading-relaxed font-normal">
+          ദോശയുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്ത് വട്ടത്തിന്റെ കൃത്യതയും, അരികുകളുടെ ഭംഗിയും, അമ്മയുടെ പൂർണ്ണ സമ്മതവും അളക്കാം.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-[#64748b] pt-2">
-          <span>STATION: CAL-BAY-01</span>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-gayathri text-[#94a3b8] pt-2">
+          <span className="text-[#10b981] font-semibold">● ഓൺ-ഡിവൈസ് AI</span>
           <span>•</span>
-          <span>ENGINE: U-2-NET (LOCAL ONNX)</span>
+          <span>100% സ്വകാര്യം</span>
           <span>•</span>
-          <span>PRIVACY: 100% CLIENT-SIDE</span>
+          <span>തത്സമയ ഫലം</span>
         </div>
       </div>
 
       {/* Two-Column Workbench Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-6">
+        {/* Stage 01: Specimen Deposition & Amma Inspection */}
+        <div className="lg:col-span-6 flex flex-col gap-6 w-full">
           <UploadPanel
             state={state}
             onStartAnalysis={handleStartAnalysis}
@@ -176,8 +186,22 @@ export default function Analyzer() {
             fileName={fileName}
             setFileName={setFileName}
           />
+
+          {result && result.geometry && (
+            <div className="w-full">
+              <AmmaMode
+                circularity={result.score}
+                roundness={result.metrics.roundness}
+                jitter={result.metrics.jitter}
+                diameter={result.geometry.equivalentDiameter}
+                onVerdictChange={handleVerdictChange}
+              />
+            </div>
+          )}
         </div>
-        <div className="lg:col-span-6">
+
+        {/* Stage 02: Results & Metrology */}
+        <div className="lg:col-span-6 flex flex-col gap-6 w-full">
           <ResultsPanel
             state={state}
             setState={setState}
@@ -187,6 +211,8 @@ export default function Analyzer() {
             logs={logs}
             error={error}
             onReset={handleReset}
+            ammaVerdict={ammaVerdict}
+            ammaLanguage={ammaLanguage}
           />
         </div>
       </div>

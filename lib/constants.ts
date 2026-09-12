@@ -61,22 +61,70 @@ export const SAMPLES: Record<number, DosaSample> = {
   },
 };
 
+export interface LoadingDialogue {
+  dialogue: string;
+  speaker: string;
+}
+
+export const MALAYALAM_LOADING_DIALOGUES: LoadingDialogue[] = [
+  {
+    speaker: "അമ്മ (Amma)",
+    dialogue: "തവ നല്ലോണം ചൂടാകട്ടെടാ... അപ്പോഴേക്കും തിടുക്കം കൂട്ടല്ലേ! 🔥",
+  },
+  {
+    speaker: "അടുക്കള നിരീക്ഷകൻ",
+    dialogue: "മാവ് ഒഴിച്ച് വട്ടത്തിൽ ചുറ്റിക്കുന്നു... കൈ വിറയ്ക്കല്ലേ മോനേ! 🌀",
+  },
+  {
+    speaker: "അമ്മ (Amma)",
+    dialogue: "ഇത് ദോശയോ അതോ ഓസ്ട്രേലിയയുടെ മാപ്പോ എന്ന് ഞാൻ നോക്കട്ടെ... 🧐",
+  },
+  {
+    speaker: "ചട്ടുകം കൺട്രോൾ റൂം",
+    dialogue: "നെയ്യ് ഇത്തിരി കൂടുതൽ ഒഴിച്ചോ? അമ്മയുടെ കണ്ണ് ഇതിലുണ്ട്! 👀",
+  },
+  {
+    speaker: "സയന്റിഫിക് ഇൻസ്പെക്ടർ",
+    dialogue: "ഒരു സൈഡ് കരിഞ്ഞുപോയോ എന്ന് ചെക്ക് ചെയ്യുന്നു... ഭാഗ്യം, രക്ഷപ്പെട്ടു! 😅",
+  },
+  {
+    speaker: "സാമ്പാർ കൗൺസിൽ",
+    dialogue: "സാമ്പാറിലേക്ക് നീന്തി വീഴാൻ ഇതിന് യോഗ്യതയുണ്ടോ എന്ന് അളക്കുന്നു... 🥣",
+  },
+  {
+    speaker: "അമ്മയുടെ അലർച്ച",
+    dialogue: "തീ കൂട്ടി വെക്കല്ലേടാ കരിഞ്ഞുപോകും! സിമ്മിലിട്! 🔊",
+  },
+  {
+    speaker: "ക്രിസ്പി ലാബ്",
+    dialogue: "ക്രിസ്പിയാണോ അതോ റബ്ബർ ഷീറ്റാണോ എന്ന് ലബോറട്ടറിയിൽ പരിശോധിക്കുന്നു... 🔬",
+  },
+  {
+    speaker: "ചമ്മന്തി ഡിവിഷൻ",
+    dialogue: "തേങ്ങാ ചമ്മന്തി റെഡിയായി... ദോശ ദാ ചൂടോടെ ഇപ്പൊ വരും! 🥥",
+  },
+  {
+    speaker: "അമ്മ (Amma)",
+    dialogue: "എന്റെ മോൻ/മോൾ ഉണ്ടാക്കിയതല്ലേ... ഒടുക്കത്തെ ടെൻഷനുണ്ട്! 📋",
+  },
+  {
+    speaker: "ഫൈനൽ സർട്ടിഫിക്കേഷൻ",
+    dialogue: "അവസാന വട്ട പരിശോധന... അമ്മ പ്ലേറ്റുമായി കാത്തുനിൽക്കുന്നു! ✨",
+  },
+];
+
 export const ANALYSIS_STEPS = [
-  '> Positioning specimen on Stage 01...',
-  '> Initializing ONNX Runtime Web execution session...',
-  '> Preprocessing image into 320x320 NCHW tensor...',
-  '> Executing U-2-Net salient foreground inference...',
-  '> Extracting composite probability mask (layer 1959)...',
-  '> Applying morphological connected component labeling...',
-  '> Isolating primary culinary specimen from background...',
-  '> Tracing Moore-Neighbor outer boundary contour...',
-  '> Calculating Shoelace area and arc-length perimeter...',
-  '> Computing Isoperimetric Roundness Index (4πA/P²)...',
-  '> Evaluating radial deviation jitter (σ)...',
-  '> Modeling Sambar dipping capillary surface tension...',
-  '> Querying Amma heuristic approval matrix...',
-  '> Generating official Class 0 Metrology Certificate...',
-  '> Analysis complete.',
+  '> സ്പെസിമെൻ തവയിലേക്ക് കയറ്റി വെക്കുന്നു (Positioning specimen)...',
+  '> ഒപ്റ്റിക്കൽ സെൻസറുകൾ ഓൺ ചെയ്യുന്നു (Initializing neural engine)...',
+  '> മാവിന്റെ വലിപ്പവും കനവും കണക്കാക്കുന്നു (Tensor preprocessing)...',
+  '> ദോശയുടെ ബോർഡറുകൾ തപ്പിയെടുക്കുന്നു (Foreground inference)...',
+  '> ഇത് പ്ലേറ്റാണോ ദോശയാണോ എന്ന് വേർതിരിക്കുന്നു (Contour isolation)...',
+  '> വട്ടത്തിന്റെ കൃത്യത അളന്നു തിട്ടപ്പെടുത്തുന്നു (Shoelace area & roundness)...',
+  '> ചരിവും വളവും അമ്മയുടെ ഫോർമുല വെച്ച് നോക്കുന്നു (Radial deviation jitter)...',
+  '> സാമ്പാറിൽ മുക്കാൻ കൊള്ളാമോ എന്ന് പരിശോധിക്കുന്നു (Sambar compatibility)...',
+  '> അമ്മയുടെ കട്ട അപ്രൂവൽ മാട്രിക്സ് പരിശോധിക്കുന്നു (Querying Amma heuristics)...',
+  '> ഔദ്യോഗിക ദോശ സർട്ടിഫിക്കറ്റ് തയ്യാറാക്കുന്നു (Generating Class 0 Certificate)...',
+  '> പരിശോധന പൂർത്തിയായി! (Analysis complete.)',
 ];
 
 export const VERDICTS: Verdict[] = [

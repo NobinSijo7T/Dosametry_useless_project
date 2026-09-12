@@ -166,7 +166,7 @@ export const CreepyButton = ({
             </motion.span>
 
             {/* Invisible placeholder to maintain size since cover is absolute */}
-            <span className="block opacity-0 px-4 py-2 font-bold tracking-wider min-w-[9em] w-full">
+            <span className="flex items-center justify-center gap-3 opacity-0 px-8 py-4 font-bold tracking-wider whitespace-nowrap min-w-[9em] w-full pointer-events-none select-none">
                 {children}
             </span>
         </button>

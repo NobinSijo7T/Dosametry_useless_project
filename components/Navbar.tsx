@@ -1,21 +1,32 @@
 "use client"
 import { useState } from "react"
-import Link from "next/link"
 import { Home, Crosshair, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import LogoIcon from '@/assets/logo/logo-icon'
 import { motion, AnimatePresence } from "framer-motion"
 
 // Helper component for navigation links
-const NavLink = ({ href, icon: Icon, label }: { href: string; icon: React.ComponentType<{ className?: string }>; label: string }) => (
-  <Link 
-    href={href} 
-    className="group flex items-center gap-1.5 text-xs lg:text-sm font-medium text-foreground/75 hover:text-[#f59e0b] transition-colors whitespace-nowrap"
-  >
-    <Icon className="w-4 h-4 text-[#f59e0b]/80 group-hover:text-[#f59e0b] transition-colors" />
-    <span>{label}</span>
-  </Link>
-)
+const NavLink = ({ href, icon: Icon, label }: { href: string; icon: React.ComponentType<{ className?: string }>; label: string }) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  return (
+    <a 
+      href={href}
+      onClick={handleClick}
+      className="group flex items-center gap-1.5 text-xs lg:text-sm font-medium text-foreground/75 hover:text-[#f59e0b] transition-colors whitespace-nowrap cursor-pointer"
+    >
+      <Icon className="w-4 h-4 text-[#f59e0b]/80 group-hover:text-[#f59e0b] transition-colors" />
+      <span>{label}</span>
+    </a>
+  );
+}
 
 export function NotchNavbar({ className, ...props }: React.HTMLAttributes<HTMLElement> & { logo?: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -26,7 +37,7 @@ export function NotchNavbar({ className, ...props }: React.HTMLAttributes<HTMLEl
       { label: "Home", href: "#home", icon: Home }
     ],
     right: [
-      { label: "Calibration Bay", href: "#analyzer", icon: Crosshair }
+      { label: "Inspection Bay", href: "#analyzer", icon: Crosshair }
     ]
   }
 
@@ -88,9 +99,17 @@ export function NotchNavbar({ className, ...props }: React.HTMLAttributes<HTMLEl
               {/* Directorate Reticle Logo (Center) */}
               <div className="flex justify-center shrink-0 mx-2 md:mx-4 mt-1">
                 {props.logo || (
-                  <Link href="#home" className="flex items-center justify-center relative group" title="National Metrology Directorate for Dosa Circularity">
+                  <a 
+                    href="#home" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('home')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    className="flex items-center justify-center relative group cursor-pointer" 
+                    title="National Metrology Directorate for Dosa Circularity"
+                  >
                     <LogoIcon className="w-7 h-7 text-[#f59e0b] animate-spin-slow group-hover:scale-110 transition-transform relative z-10 drop-shadow-[0_0_8px_rgba(245,158,11,0.3)]" />
-                  </Link>
+                  </a>
                 )}
               </div>
 
@@ -142,15 +161,23 @@ export function NotchNavbar({ className, ...props }: React.HTMLAttributes<HTMLEl
           >
              <nav className="flex flex-col gap-2">
                {[...items.left, ...items.right].map(item => (
-                 <Link 
+                 <a 
                    key={item.label} 
                    href={item.href}
-                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-foreground/5 transition-colors"
-                   onClick={() => setIsMobileMenuOpen(false)}
+                   onClick={(e) => {
+                     e.preventDefault();
+                     const targetId = item.href.replace('#', '');
+                     const element = document.getElementById(targetId);
+                     if (element) {
+                       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                     }
+                     setIsMobileMenuOpen(false);
+                   }}
+                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-foreground/5 transition-colors cursor-pointer"
                  >
                    <item.icon className="w-5 h-5 text-[#f59e0b] opacity-80" />
                    <span className="font-medium text-foreground/90">{item.label}</span>
-                 </Link>
+                 </a>
                ))}
              </nav>
           </motion.div>

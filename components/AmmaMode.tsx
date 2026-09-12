@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { Volume2, VolumeX, Loader2 } from 'lucide-react';
 import type { AmmaLanguage, AmmaVerdict } from '@/types';
 import { getAvailableLanguages, generateAmmaVerdict } from '@/lib/ammaVerdict';
 
@@ -23,11 +24,51 @@ export default function AmmaMode({
   const [verdict, setVerdict] = useState<AmmaVerdict | null>(null);
   const [isAnimating, setIsAnimating] = useState(true);
   const [animatedScore, setAnimatedScore] = useState(0);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioLoading, setAudioLoading] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const onVerdictChangeRef = useRef(onVerdictChange);
   onVerdictChangeRef.current = onVerdictChange;
 
   const languages = getAvailableLanguages();
+
+  const handlePlayVerdict = async () => {
+    if (isPlayingAudio && audioRef.current) {
+      audioRef.current.pause();
+      setIsPlayingAudio(false);
+      return;
+    }
+    if (!verdict?.verdict) return;
+
+    setAudioLoading(true);
+    try {
+      const res = await fetch('/api/sarvam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'tts', text: verdict.verdict }),
+      });
+      const data = await res.json();
+      if (data.audio) {
+        const audioUrl = `data:audio/wav;base64,${data.audio}`;
+        if (audioRef.current) {
+          audioRef.current.src = audioUrl;
+        } else {
+          audioRef.current = new Audio(audioUrl);
+        }
+
+        audioRef.current.onended = () => setIsPlayingAudio(false);
+        audioRef.current.onerror = () => setIsPlayingAudio(false);
+
+        await audioRef.current.play();
+        setIsPlayingAudio(true);
+      }
+    } catch (err) {
+      console.error('Sarvam TTS error:', err);
+    } finally {
+      setAudioLoading(false);
+    }
+  };
 
   // Generate verdict when component mounts or language changes
   useEffect(() => {
@@ -101,10 +142,10 @@ export default function AmmaMode({
   return (
     <div className="bg-gradient-to-br from-[#181c25] to-[#12151c] border border-[rgba(245,158,11,0.2)] rounded-2xl p-6 shadow-xl relative overflow-hidden">
       {/* Decorative corner accents */}
-      <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#f59e0b] opacity-30 rounded-tl-2xl" />
-      <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#f59e0b] opacity-30 rounded-tr-2xl" />
-      <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#f59e0b] opacity-30 rounded-bl-2xl" />
-      <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#f59e0b] opacity-30 rounded-br-2xl" />
+      <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#f59e0b] opacity-30 rounded-tl-2xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#f59e0b] opacity-30 rounded-tr-2xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#f59e0b] opacity-30 rounded-bl-2xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#f59e0b] opacity-30 rounded-br-2xl pointer-events-none" />
 
       {/* Header */}
       <div className="text-center mb-6 relative z-10">
@@ -172,8 +213,28 @@ export default function AmmaMode({
               {getCategoryEmoji(verdict.category)}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-mono text-xs text-[#f59e0b] uppercase tracking-wider mb-2">
-                Amma Verdict
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="font-mono text-xs text-[#f59e0b] uppercase tracking-wider">
+                  Amma Verdict
+                </div>
+                {language === 'malayalam' && (
+                  <button
+                    type="button"
+                    onClick={handlePlayVerdict}
+                    disabled={audioLoading}
+                    className="flex items-center gap-1.5 text-xs font-gayathri font-bold px-2.5 py-1 rounded-md bg-[#161a24] hover:bg-[#202736] border border-[#f59e0b]/30 text-[#f59e0b] transition-all cursor-pointer shadow-xs"
+                    title="അമ്മയുടെ ശബ്ദത്തിൽ കേൾക്കാം"
+                  >
+                    {audioLoading ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : isPlayingAudio ? (
+                      <VolumeX className="w-3.5 h-3.5 text-[#ef4444]" />
+                    ) : (
+                      <Volume2 className="w-3.5 h-3.5" />
+                    )}
+                    <span>{isPlayingAudio ? 'നിർത്തൂ' : 'ശബ്ദം കേൾക്കാം 🔊'}</span>
+                  </button>
+                )}
               </div>
               <p
                 className={`text-[#fdfbf7] leading-relaxed ${

@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import type { AnalyzerState, AnalysisResult, AmmaVerdict, AmmaLanguage } from '@/types';
 import type { AnalysisError } from '@/types/u2net';
-import AmmaMode from './AmmaMode';
 import DosaPassport from './DosaPassport';
 import { generateSpecimenId } from '@/lib/specimenId';
+import { MALAYALAM_LOADING_DIALOGUES } from '@/lib/constants';
 
 interface ResultsPanelProps {
   state: AnalyzerState;
@@ -16,6 +16,8 @@ interface ResultsPanelProps {
   logs: string[];
   error: AnalysisError | null;
   onReset: () => void;
+  ammaVerdict?: AmmaVerdict | null;
+  ammaLanguage?: AmmaLanguage;
 }
 
 export default function ResultsPanel({
@@ -27,18 +29,13 @@ export default function ResultsPanel({
   logs,
   error,
   onReset,
+  ammaVerdict = null,
+  ammaLanguage = 'malayalam',
 }: ResultsPanelProps) {
   const [animatedScore, setAnimatedScore] = useState(0);
   const [viewMode, setViewMode] = useState<'overlay' | 'mask'>('overlay');
-  const [ammaVerdict, setAmmaVerdict] = useState<AmmaVerdict | null>(null);
-  const [ammaLanguage, setAmmaLanguage] = useState<AmmaLanguage>('malayalam');
   const [showPassport, setShowPassport] = useState(false);
   const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
-
-  const handleVerdictChange = useCallback((verdict: AmmaVerdict, language: AmmaLanguage) => {
-    setAmmaVerdict(prev => (prev?.verdict === verdict.verdict && prev?.approvalScore === verdict.approvalScore ? prev : verdict));
-    setAmmaLanguage(prev => (prev === language ? prev : language));
-  }, []);
 
   useEffect(() => {
     if (state === 'done' && result) {
@@ -179,15 +176,15 @@ export default function ResultsPanel({
           </div>
         </div>
 
-        <h4 className="font-marcellus text-xl text-[#fdfbf7] mb-2">Interferometer in Standby</h4>
+        <h4 className="font-marcellus text-xl text-[#fdfbf7] mb-2">Awaiting Dosa Specimen</h4>
         <p className="text-sm text-[#94a3b8] max-w-[380px] leading-relaxed">
-          Position a culinary specimen on Stage 01. The local U-2-Net neural model will isolate the foreground dosa and compute deterministic circularity ($4\pi A / P^2$).
+          Upload a photo or choose a preset on the left to measure circularity and maternal approval.
         </p>
         <div className="mt-6 font-mono text-xs text-[#64748b] flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-          <span>U-2-NET LOCAL ENGINE READY</span>
+          <span>AI SCANNER ONLINE</span>
           <span>•</span>
-          <span>STANDBY</span>
+          <span>WAITING FOR INPUT</span>
         </div>
       </div>
     );
@@ -236,11 +233,17 @@ export default function ResultsPanel({
   // ANALYZING STATE
   const isAnalyzing = state !== 'done' && state !== 'error';
   if (isAnalyzing) {
+    const dialogueIdx = Math.min(
+      MALAYALAM_LOADING_DIALOGUES.length - 1,
+      Math.floor((progress / 100) * MALAYALAM_LOADING_DIALOGUES.length)
+    );
+    const activeDialogue = MALAYALAM_LOADING_DIALOGUES[dialogueIdx];
+
     return (
-      <div className="bg-[#12151c] border border-[rgba(253,251,247,0.12)] rounded-2xl p-8 min-h-[520px] flex flex-col justify-between shadow-xl">
-        <div className="text-center pt-4">
+      <div className="bg-[#12151c] border border-[rgba(253,251,247,0.12)] rounded-2xl p-6 sm:p-8 min-h-[520px] flex flex-col justify-between shadow-xl">
+        <div className="text-center pt-2">
           {/* Scanning Polar Radar Reticle */}
-          <div className="relative w-44 h-44 mx-auto mb-6 flex items-center justify-center">
+          <div className="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto mb-4 flex items-center justify-center">
             <div className="absolute inset-0 rounded-full border border-[rgba(253,251,247,0.15)]" />
             <div className="absolute inset-3 rounded-full border border-dashed border-[rgba(245,158,11,0.3)] animate-spin-slow" />
             <div className="absolute inset-8 rounded-full border border-[rgba(253,251,247,0.1)]" />
@@ -261,11 +264,29 @@ export default function ResultsPanel({
             </div>
           </div>
 
-          <div className="font-marcellus text-lg text-[#fdfbf7] mb-1">
-            Executing U-2-Net Polar Metrology
+          {/* Malayalam Funny Live Commentary Card */}
+          <div className="mb-4 px-4 py-3 bg-gradient-to-r from-[#181c25] via-[#1a202c] to-[#181c25] border border-[#f59e0b]/40 rounded-xl shadow-lg relative overflow-hidden">
+            <div className="flex items-center justify-between gap-2 mb-1.5 border-b border-[rgba(253,251,247,0.08)] pb-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm">👩‍🍳</span>
+                <span className="font-gayathri text-xs font-bold text-[#f59e0b]">
+                  {activeDialogue.speaker}
+                </span>
+              </div>
+              <span className="font-mono text-[0.62rem] text-[#94a3b8] uppercase tracking-wider">
+                തത്സമയ കമന്ററി
+              </span>
+            </div>
+            <p className="font-gayathri text-base sm:text-lg text-[#fdfbf7] font-bold leading-snug">
+              "{activeDialogue.dialogue}"
+            </p>
           </div>
-          <p className="text-xs font-mono text-[#f59e0b] tracking-wider mb-6 truncate max-w-[420px] mx-auto">
-            {currentStep || 'Inferring salient foreground boundaries...'}
+
+          <div className="font-gayathri text-base sm:text-lg text-[#fdfbf7] font-bold mb-1">
+            ദോശയുടെ വട്ടം ശാസ്ത്രീയമായി അളക്കുന്നു...
+          </div>
+          <p className="text-xs font-gayathri text-[#f59e0b] font-medium tracking-wide mb-4 truncate max-w-[440px] mx-auto">
+            {currentStep || 'മാവിന്റെ ഘടന പരിശോധിക്കുന്നു...'}
           </p>
         </div>
 
@@ -273,12 +294,12 @@ export default function ResultsPanel({
         <div 
           role="status" 
           aria-live="polite"
-          className="font-mono text-[0.72rem] bg-[#0a0c10] border border-[rgba(253,251,247,0.1)] text-[#10b981] rounded-xl p-4 max-h-[140px] overflow-y-auto space-y-1 text-left"
+          className="font-mono text-[0.72rem] bg-[#0a0c10] border border-[rgba(253,251,247,0.1)] text-[#10b981] rounded-xl p-3.5 max-h-[130px] overflow-y-auto space-y-1 text-left"
         >
           {logs.map((log, i) => (
             <div key={i} className="flex items-center gap-2">
-              <span className="text-[#f59e0b] opacity-60">›</span>
-              <span>{log}</span>
+              <span className="text-[#f59e0b] opacity-60 shrink-0">›</span>
+              <span className="font-gayathri text-[0.8rem] text-[#10b981] leading-tight">{log}</span>
             </div>
           ))}
         </div>
@@ -286,7 +307,7 @@ export default function ResultsPanel({
         <button
           type="button"
           onClick={onReset}
-          className="mt-6 w-full py-3 px-4 rounded-xl border border-[rgba(185,28,28,0.4)] text-[#ef4444] hover:bg-[rgba(185,28,28,0.15)] text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
+          className="mt-4 w-full py-2.5 px-4 rounded-xl border border-[rgba(185,28,28,0.4)] text-[#ef4444] hover:bg-[rgba(185,28,28,0.15)] text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
         >
           ✕ Abort Calibration Sequence
         </button>
@@ -512,17 +533,6 @@ export default function ResultsPanel({
             ↺ Analyze Another Specimen
           </button>
         </div>
-
-        {/* Amma Mode Section */}
-        {result.geometry && (
-          <AmmaMode
-            circularity={result.score}
-            roundness={result.metrics.roundness}
-            jitter={result.metrics.jitter}
-            diameter={result.geometry.equivalentDiameter}
-            onVerdictChange={handleVerdictChange}
-          />
-        )}
 
         {/* Dosa Passport Modal */}
         {showPassport && (
