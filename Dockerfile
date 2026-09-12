@@ -1,5 +1,6 @@
 # Dosametry - Production Dockerfile for Railway
 # Optimized for Next.js 16.3.5 with standalone output
+# Node.js 20.18.1+ required
 
 # Stage 1: Dependencies
 FROM node:20-alpine AS deps
