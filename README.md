@@ -179,16 +179,6 @@ https://github.com/user-attachments/assets/1f01091a-a0f5-4d2e-9177-c807112f52e0
 **Complete walkthrough demonstrating:**  
 Hero section with particle canvas, dosa specimen upload, real-time U-2-Net segmentation with polar radar animation, results panel with 100% circularity score, contour overlay visualization, Malayalam Amma Mode language switcher (മലയാളം/Manglish/English), maternal verdict selection, and Dosa Passport certificate generation with print preview.
 
-# Additional Demos
-
-- Live U-2-Net neural network inference running in browser via ONNX Runtime Web
-- Real geometric circularity calculation: C = 4πA/P² with actual contour coordinates
-- Canvas-based contour overlay with detected boundaries, centroid, and equivalent circle
-- Malayalam Unicode rendering in both UI and print output
-- Lenis smooth scrolling with momentum physics
-- Responsive design from mobile to 4K displays
-- WCAG 2.1 Level AA accessibility compliance
-
 ## Team Contributions
 
 - **Nobin Sijo**: Full-stack architecture, U-2-Net integration, geometric analysis algorithms, Malayalam Amma Mode engine, Dosa Passport print system, UI/UX design, deployment
