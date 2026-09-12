@@ -41,19 +41,30 @@ export async function getU2NetSession(
     onProgress?.('Loading ONNX Runtime Web...', 15);
     const ort = await getOrt();
 
-    // Priority paths for model static asset
-    const modelPaths = [
-      '/U-2-Net/onnx/model.onnx',
-      '/models/u2net/onnx/model.onnx',
-      '/models/u2net/model.onnx',
-    ];
+    // Check for environment variable (CDN URL)
+    const modelCDN = process.env.NEXT_PUBLIC_MODEL_URL || 
+      typeof window !== 'undefined' && (window as any).MODEL_URL;
+
+    // Priority paths for model: CDN first, then local fallbacks
+    const modelPaths = modelCDN 
+      ? [
+          modelCDN,
+          '/U-2-Net/onnx/model.onnx',
+          '/models/u2net/onnx/model.onnx',
+          '/models/u2net/model.onnx',
+        ]
+      : [
+          '/U-2-Net/onnx/model.onnx',
+          '/models/u2net/onnx/model.onnx',
+          '/models/u2net/model.onnx',
+        ];
 
     let session: any = null;
     let lastError: Error | null = null;
 
     for (const modelPath of modelPaths) {
       try {
-        onProgress?.(`Initializing model session from ${modelPath}...`, 25);
+        onProgress?.(`Initializing model session from ${modelPath.includes('http') ? 'CDN' : 'local'}...`, 25);
 
         // 1. Try WASM with SIMD acceleration first (more stable for MaxPool operations)
         session = await ort.InferenceSession.create(modelPath, {
@@ -86,9 +97,12 @@ export async function getU2NetSession(
 
     // Reset promise on total failure so user can retry
     inferenceSessionPromise = null;
-    throw new Error(
-      `Failed to load U-2-Net ONNX model from local paths. Last error: ${lastError?.message || 'File not found'}`
-    );
+    
+    const errorMsg = modelCDN 
+      ? `Failed to load U-2-Net model from CDN or local paths. Please check MODEL_URL configuration.`
+      : `Failed to load U-2-Net model from local paths. Model file may be missing. Please download it from the repository.`;
+    
+    throw new Error(`${errorMsg} Last error: ${lastError?.message || 'File not found'}`);
   })();
 
   return inferenceSessionPromise;
