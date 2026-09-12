@@ -19,7 +19,11 @@ async function getOrt() {
     ortModulePromise = import('onnxruntime-web').then((ort) => {
       // Direct WASM binaries to our local /onnx/ directory for 100% offline self-containment
       ort.env.wasm.wasmPaths = '/onnx/';
-      ort.env.wasm.numThreads = Math.min(navigator.hardwareConcurrency || 4, 4);
+      // Disable multi-threading to avoid CORS issues (Railway doesn't support crossOriginIsolated)
+      ort.env.wasm.numThreads = 1;
+      ort.env.wasm.simd = true;
+      // Disable proxy for better compatibility
+      ort.env.wasm.proxy = false;
       return ort;
     });
   }

@@ -54,6 +54,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Ensure WASM files have correct permissions
+RUN chmod -R 755 ./public/onnx
+
 # Set correct permissions
 RUN chown -R nextjs:nodejs /app
 
